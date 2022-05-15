@@ -47,7 +47,7 @@ function imprimeInformacoesUsuario() {
   const idade = prompt ("Quantos anos você tem?")
   const email = prompt ("Qual é o seu e-mail?")
  
-  console.log(`Meu nome é ${nome}, tenho ${idade} anos, e o meu e-mail é ${email}.`)
+  console.log(`Meu nome é ${nome}, tenho ${idade} anos, e o meu email é ${email}.`)
 
  }
 
@@ -62,11 +62,11 @@ function imprimeTresCoresFavoritas() {
 
 // EXERCÍCIO 06
 function retornaStringEmMaiuscula(string) {
-  const mensagem = "Estou ficando doida"
-    return console.log(mensagem.toUpperCase())
+  mensagem = string.toUpperCase()
+    return mensagem
       
   }
-  retornaStringEmMaiuscula()
+  
 
 // EXERCÍCIO 07
 function calculaIngressosEspetaculo(custo, valorIngresso) {
@@ -78,10 +78,13 @@ function calculaIngressosEspetaculo(custo, valorIngresso) {
 
 // EXERCÍCIO 08
 function checaStringsMesmoTamanho(string1, string2) {
-  const s1 = "ola"
-  const s2 = "abc"
 
-    return s1 === s2
+  string1 = "ola".length
+  string2 = "abc".length
+
+  let comparacao = string1 === string2
+
+  return comparacao
   
   }
 
@@ -92,8 +95,6 @@ function retornaPrimeiroElemento(array) {
      
     return primeiroItem
   }
-  retornaPrimeiroElemento()
-
 
 
 // EXERCÍCIO 10
@@ -101,24 +102,31 @@ function retornaUltimoElemento(array) {
   const listaDeCompras2 = ["arroz", "feijão", "carne", "batata"]
     const ultimoItem = listaDeCompras2[listaDeCompras2.length - 1]
      
-    console.log(ultimoItem)
+    return ultimoItem
   }
-  retornaUltimoElemento()
+  
 
 // EXERCÍCIO 11
 function trocaPrimeiroEUltimo(array) {
 
+  let primeiro = array [0]
+  let ultimo = array[array.length -1]
+  array [0] = ultimo
+
+return array
 
 }
 
 // EXERCÍCIO 12
 function checaIgualdadeDesconsiderandoCase(string1, string2) {
-  const stringUm = "Mariana"
-  const stringDois = "Mariana"
 
-  return console.log(stringUm === stringDois)
+  string1 = string1.toLowerCase()
+  string2 = string2.toLowerCase()
+
+  let comparacao = string1 === string2
+
+  return comparacao
 }
-checaIgualdadeDesconsiderandoCase()
 
 // EXERCÍCIO 13
 function checaRenovacaoRG() {
