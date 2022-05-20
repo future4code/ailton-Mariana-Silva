@@ -78,42 +78,38 @@ function calculaIngressosEspetaculo(custo, valorIngresso) {
 
 // EXERCÍCIO 08
 function checaStringsMesmoTamanho(string1, string2) {
-
-  string1 = "ola".length
-  string2 = "abc".length
-
-  let comparacao = string1 === string2
-
-  return comparacao
+  return string1.length === string2.length
   
   }
 
 // EXERCÍCIO 09
 function retornaPrimeiroElemento(array) {
-  const listaDeCompras = ["arroz", "feijão", "carne", "batata"]
-  const primeiroItem = listaDeCompras[0] 
-     
-    return primeiroItem
+  const primeiroItem = array[0]
+  return primeiroItem
   }
 
 
 // EXERCÍCIO 10
 function retornaUltimoElemento(array) {
-  const listaDeCompras2 = ["arroz", "feijão", "carne", "batata"]
-    const ultimoItem = listaDeCompras2[listaDeCompras2.length - 1]
-     
-    return ultimoItem
+  let primeiroItem = array[0]
+  let ultimoItem = array.pop()
+
+  array.push(primeiroItem)
+  array[0] = ultimoItem
+
+  return ultimoItem
   }
   
 
 // EXERCÍCIO 11
 function trocaPrimeiroEUltimo(array) {
+  const primeiro = retornaPrimeiroElemento(array)
+  const ultimo = retornaUltimoElemento(array)
 
-  let primeiro = array [0]
-  let ultimo = array[array.length -1]
-  array [0] = ultimo
+   array[0] = ultimo
+   array[array.length - 1] = primeiro
 
-return array
+   return array
 
 }
 
