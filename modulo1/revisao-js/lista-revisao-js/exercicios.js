@@ -145,7 +145,7 @@ function retornaPessoasNaoAutorizadas(pessoas) {
 
     pessoas.filter((pessoa1)=>{
  
-        if(pessoa1.idade <= "14" || pessoa1.idade > 60 || pessoa1.altura < 1.5){
+        if(pessoa1.idade <= 14 || pessoa1.idade > 60 || pessoa1.altura < 1.5){
             pessoasNaoAutorizadas.push(pessoa1)
         }  
     })
@@ -168,15 +168,26 @@ return compras
 
 // EXERCÍCIO 15A
 function retornaArrayOrdenadoAlfabeticamente(consultas) {
-    consultas.sort((a, b, )=>{
+    consultas.sort((a, b) => {
         if(a.nome > b.nome){
             return true
-        }else return -1
+        }
+        else {
+            return -1
+        }
      })
      return consultas
 }
 
 // EXERCÍCIO 15B
 function retornaArrayOrdenadoPorData(consultas) {
-   
+    consultas.sort((a, b) => {
+        if(a.dataDaConsulta > b.dataDaConsulta){
+            return true
+        }
+        else {
+            return -1
+        }
+     })
+     return consultas
 }
