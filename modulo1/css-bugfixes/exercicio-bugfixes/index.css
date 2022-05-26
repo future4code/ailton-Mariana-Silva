@@ -51,6 +51,11 @@ div img {
     background-color: #c44f00;
 }
 
+.botao-amarelo:active {
+    color: white;
+    background-color: orangered;
+}
+
 .container {
     height: 500px;
     text-align: center;
