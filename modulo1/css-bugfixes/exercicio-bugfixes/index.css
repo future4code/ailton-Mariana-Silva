@@ -84,7 +84,9 @@ div img {
 }
 
 #container-de-descricao>ol {
-    padding: 15px 0px;
+    padding: 16px;
+    text-align: center;
+    list-style-position: inside;
 }
 
 #container-para-comprar {
@@ -145,4 +147,12 @@ td button {
 
 #back-button:hover {
     background-color: #635a3d
+}
+
+#lupa:hover {
+    opacity: 0.3;
+}
+
+#lupa:active {
+    opacity: 1;
 }
