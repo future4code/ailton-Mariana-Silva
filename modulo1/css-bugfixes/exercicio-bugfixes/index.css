@@ -1,0 +1,158 @@
+/** 
+  *
+  *  ESTILOS GERAIS 
+  *
+  **/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    background-color: #fe7e02;
+    padding: 10px 5px 10px 5px;
+    color: white;
+    text-align: center;
+}
+
+input {
+    height: 20px;
+    width: 500px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom-width: 3px;
+}
+
+button:focus {
+    color: white;
+}
+
+img {
+    width: 80px;
+    height: 80px;
+}
+
+div>p:first-child {
+    display: inline;
+}
+
+div img {
+    background: white;
+}
+
+.botao-amarelo {
+    background-color: #ffaf43;
+    width: 250px;
+    height: 40px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white;
+}
+
+.botao-amarelo:hover {
+    background-color: #c44f00;
+}
+
+.botao-amarelo:active {
+    color: white;
+    background-color: orangered;
+}
+
+.container {
+    height: 500px;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.icone {
+    width: 15px;
+    height: 15px;
+}
+
+
+/** 
+  *
+  *  ESTILOS HOME 
+  *
+  **/
+
+#container-de-descricao {
+    background-color: #2274a5;
+    color: white;
+}
+
+#container-de-descricao>ol {
+    padding: 16px;
+    text-align: center;
+    list-style-position: inside;
+}
+
+#container-para-comprar {
+    background-color: #e7eb90;
+}
+
+#container-para-comprar>p {
+    color: #c44f00;
+    padding: 100px 0;
+    font-size: 60px;
+}
+
+
+/**
+  *
+  *  ESTILOS COMPRAR 
+  *
+  **/
+
+div:nth-child(2),
+div:last-child {
+    text-align: center;
+}
+
+table {
+    width: 60%;
+    text-align: center;
+    margin: auto;
+}
+
+td button {
+    background-color: #fadf63;
+    width: 150px;
+    height: 30px;
+    border-radius: 5px;
+    color: black;
+}
+
+.container-do-search {
+    margin-top: 20px;
+    height: 100px;
+}
+
+
+#back-button {
+    background-color: white;
+    width: 100px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: 10px;
+    color: black;
+}
+
+.back-button {
+    text-align: center;
+}
+
+#back-button:hover {
+    background-color: #635a3d
+}
+
+#lupa:hover {
+    opacity: 0.3;
+}
+
+#lupa:active {
+    opacity: 1;
+}
