@@ -1,0 +1,75 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+header{
+    height: 70%;
+    background-color: orange;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    justify-content: space-between;
+}
+header a {
+    color:black;
+    text-decoration: none;
+}
+
+p{
+    display: flex;
+    align-items: center;
+}
+body{
+    display: grid;
+    grid-template-rows: 100px 100% 60px;
+}
+h2{
+    text-align: left;
+}
+
+.tela{
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    height: 100%;
+    width: 100%;
+    border-style: groove;
+    border-color: lightgreen;
+}
+h1 {
+    margin-left: 20px;
+}
+#imput{
+    margin-right: 50px;
+    width: 300px;
+    height: 25px;
+}
+.media{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40vh, 1fr));
+    margin: 1%;
+    gap: 10px;
+}
+.tela video{
+    height: 100%;
+    width: 100%;
+}
+footer{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 90%;
+    color: white;
+    background-color: rgb(46, 46, 46); 
+}
+/* Videos 1-8 */
+.video h2 {
+    height: 60px;
+}
+.video{
+    text-align: center;
+    justify-content: center;
+    margin: 20%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
