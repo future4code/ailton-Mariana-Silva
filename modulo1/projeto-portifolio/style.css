@@ -1,0 +1,232 @@
+*{
+    margin:0;
+    padding:0;
+    font-family: comic sans ms;
+    box-sizing: border-box;
+}
+/* Cabeçalho*/
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display:flex;
+    color:white;
+    background-color:black;
+    justify-content:space-around;
+    align-items:center;    
+}
+section{
+    padding: 100px;
+}
+.atalhos a {
+    margin: 0px 7px;
+    font-size: 22px;
+    color:white;
+    text-decoration:none;
+}
+.atalhos a:hover {
+    border-bottom: 2px solid white;
+}
+/* Pagina Inicial */
+#inicio {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+}
+#inicio img {
+    height: 25em;
+    border-radius: 18.75em;
+    padding-top: 4.375em;
+    padding-left: 4.375em;
+    padding-right: 4.375em;
+    padding-bottom: 4.375em;
+}
+
+/* Sobre mim */
+#sobreMim {
+    color: white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px;
+}
+#sobreMim h1 {
+    padding: 15px 0px;
+}
+#sobreMim p {
+    width: 90%;
+    text-align: justify;
+}
+/* Hard Skills */
+.tituloSkills{
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+.imagens {
+    display: flex;
+    justify-content:center;
+}
+.imagens img {
+    margin: 15px 5px;
+    width: 50px
+}
+/* Projetos */
+.titulo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.titulo h2{
+    color: black;
+    font-size: 1.8rem;
+
+}
+.projetos{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: justify;
+}
+.projetoLBN{
+    padding: 40px 40px;
+    background-color: black;
+    color: #fff;
+    max-width: 400px;
+    margin: 10px;
+}
+.projetoLBN h1 {
+    padding: 15px 0px;
+    text-align: center;
+}
+.projetoLBN img {
+    height: 150px;
+    text-align: center;
+}
+.imagem {
+    text-align: center;
+}
+.projetoLBN:hover {
+    transform: translateY(-10px);
+    background: var(--main-color);
+    transition: 0.5s;
+    --main-color: orange; 
+}
+/* Contato */
+#contato {
+    height: 750px;
+    background-color: black;
+    text-align: center;
+    color: white;
+}
+#contato h2 {
+    padding: 50px;
+    font-size: 35px;
+}
+#contato form {
+    width: 400px;
+    margin: 0 auto;
+}
+#contato form input {
+    display: block;
+    margin: 15px;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box; 
+}
+#contato form textarea {
+    display: block;
+    margin: 15px;
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+}
+/* Rodapé */
+#redesSociais {
+    display: block;
+    width: 100%;
+    height: 250px;
+    background-color: black;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+}
+#redesSociais h2 {
+    color: white;
+}
+@media screen and (min-width: 320px) and (max-width : 480px) {
+header {
+    position: initial;
+    border-bottom: 1px solid lightgray;
+    z-index: 1;
+    font-size: 0px;
+}
+.atalhos a {
+    margin: 0px 7px;
+    font-size: 15px;
+    color:white;
+    text-decoration:none;
+}
+.atalhos a:hover {
+    border-bottom: 2px solid white;
+}
+#inicio img {
+    width: 100%;
+}
+#sobreMim {
+    padding: 12px;   
+}
+.h2 {
+    font-size: 23px;
+}
+.projetos{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: justify;
+    padding: 15px;
+}
+#projetos {
+    padding: 0;
+}
+.projetoLBN{
+    padding: 20px;
+}
+.projetoLBN h1 {
+    padding: 0px;
+    text-align: center;
+    margin: 0;
+}
+.projetoLBN img {
+    text-align: center;
+}
+#contato {
+    background-color: black;
+    text-align: center;
+    color: white;
+    padding: 0;
+    height: 500px;
+}
+#contato h2 {
+    padding: 30px;
+    font-size: 25px;
+}
+#contato form {
+    width: 90%;
+    margin: 0;
+}
+#redesSociais {
+    padding: 0;
+    height: 130px;
+}
+#redesSociais img {
+    width: 60px;
+}
+}
