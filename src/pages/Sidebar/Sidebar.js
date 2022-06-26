@@ -53,7 +53,7 @@ export default class Sidebar extends React.Component {
               <BsPlusSquareFill/>
               <h4>Criar Playlist</h4>
             </SecondContainerItem>
-            <SecondContainerItem>
+            <SecondContainerItem onClick={() => loading()}>
             <ImHeart/>
               <h4>Músicas Curtidas</h4>
             </SecondContainerItem>
