@@ -3,7 +3,7 @@ import axios from "axios"
 import Swal from 'sweetalert2'
 import { BASE_URL } from "../../constants/urls"
 import { HEADERS } from "../../constants/headers"
-import { AddContainer, MainContainer } from "./StyledAddTracks";
+import { AddContainer, MainContainer } from "./StyledAddTracks"
 export default class AddTrack extends React.Component {
 state = {
   name: "",

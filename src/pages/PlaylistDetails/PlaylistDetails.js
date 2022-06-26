@@ -56,6 +56,12 @@ render() {
   const showTracks = this.props.tracks.map((tracks) => {
     return (
       <TrackContainer key={tracks.id}>
+        <p>
+        <strong>Nome da música:</strong> {tracks.name}
+        </p>
+        <p>
+        <strong>Artista:</strong> {tracks.artist}
+        </p>
         <TrackCard
           src={tracks.url}
           allowfullscreen=""

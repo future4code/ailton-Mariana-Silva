@@ -8,7 +8,7 @@ export const AddContainer = styled.div`
   padding: 20px 40px;
   height: 100vh;
   @media (max-width: 480px) {
-      width: 60%;
+    width: 60%;
   }
 `
 export const MainContainer = styled.div`

@@ -18,11 +18,13 @@ export const PlaylistCard = styled.div`
   align-items: center;
   margin: 20px 5px;
   color: white;
-  font-size: 20px;
+  h4 {
+    margin-top: 5px;
+    font-size: 20px;
+  }
 `
 export const ImgPlaylist = styled.img`
-  width: 80%;
-  margin: 10px;
+  width: 90%;
 `
 export const HeadingPlaylist = styled.h4`
   word-wrap: break-word;

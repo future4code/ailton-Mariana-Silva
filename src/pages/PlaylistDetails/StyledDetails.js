@@ -36,10 +36,19 @@ export const TrackContainer = styled.div`
         opacity: 0.8;
       }
     }
+    p{
+      color: white;
+      font-size: 15px;
+      width: 80%;
+      word-wrap: break-word;
+      margin: 5px;
+      display: none;
+    }
 `
 export const TrackCard = styled.iframe`
     cursor: pointer;
-    width: 80%;
+    color: white;
+    width: 90%;
     height: 80px;
     border: 0px;
     margin: 1rem 1rem 0.1rem;

@@ -28,7 +28,7 @@ export default class UserPlaylists extends React.Component {
           >
             <PlaylistCard onClick={() => this.props.pageDetails()}>
               <ImgPlaylist
-                src={`https://jpimg.com.br/uploads/2017/11/archives/2017/09/29/236086929-tell-me-you-love-me-demi-lovato-volta-mais-sincera-e-ousada-do-que-nunca-reproducao.jpg`}
+                src={`https://i.pinimg.com/originals/66/98/c8/6698c896357d814366f3bb52301076ef.jpg`}
                 alt="Imagem"
               />
               <HeadingPlaylist>{list.name}</HeadingPlaylist>

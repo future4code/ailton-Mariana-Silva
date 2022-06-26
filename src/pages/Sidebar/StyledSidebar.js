@@ -82,6 +82,7 @@ export const SecondContainerItem = styled.div`
     text-align: center;
     padding-left: 16px;
     margin: 5px;
+    margin-top: 0;
     :hover {
     opacity: 1;
     }
@@ -106,6 +107,13 @@ export const ContainerItems = styled.div`
     width: 90%;
     border-color: #282828;
   }
+  p{
+    cursor: pointer;
+    color: white;
+    text-align: center;
+    margin-top: 90px;
+    margin-bottom: 5px;
+  }
   @media (max-width: 480px) {
     height: auto;
     width: 100%;
@@ -115,6 +123,17 @@ export const ContainerItems = styled.div`
     h4 {
       display: none;
     } 
+    p{
+      display: none;
+    }
+  }
+`
+export const ImgCardSpotify = styled.img`
+  cursor: pointer;
+  width: 90%;
+
+  @media (max-width: 480px) {
+    display: none;
   }
 `
 export const MenuMobile = styled.div`

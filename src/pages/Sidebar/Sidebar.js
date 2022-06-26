@@ -5,6 +5,7 @@ import {BiLibrary} from "react-icons/bi"
 import {BsPlusSquareFill} from "react-icons/bs"
 import {ImHeart} from "react-icons/im"
 import {ImSpotify} from "react-icons/im"
+import {MdDownloading} from "react-icons/md"
 import Swal from 'sweetalert2'
 import {
   Container,
@@ -15,6 +16,7 @@ import {
   SecondContainerItem,
   ContainerItems,
   MenuMobile,
+  ImgCardSpotify,
 } from "./StyledSidebar"
 
 const loading = () => {
@@ -49,14 +51,19 @@ export default class Sidebar extends React.Component {
           <SecondContainer>
             <SecondContainerItem onClick={() => this.props.pageCreate()}>
               <BsPlusSquareFill/>
-              <h4>Criar playlist</h4>
+              <h4>Criar Playlist</h4>
             </SecondContainerItem>
-            <SecondContainerItem onClick={() => loading()}>
+            <SecondContainerItem>
             <ImHeart/>
               <h4>Músicas Curtidas</h4>
             </SecondContainerItem>
           </SecondContainer>
           <hr />
+          <p onClick={() => loading()}><MdDownloading/>Instalar Aplicativo</p>
+          <ImgCardSpotify onClick={() => loading()}
+                src={`https://i.scdn.co/image/ab67616d0000b273ae2cb38680fb2a51b76fb05d`}
+                alt="Imagem"
+              />
         <MenuMobile>
           <AiFillHome
           onClick={() => this.props.pageHome()} 
