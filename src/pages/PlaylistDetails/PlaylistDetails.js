@@ -15,7 +15,6 @@ import {
   ButtonAddTrack,
   MainContainer,
 } from "./StyledDetails"
-
 export default class PlaylistsDetails extends React.Component {
 state = {
   addTrackOpen: false,

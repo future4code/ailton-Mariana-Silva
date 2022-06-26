@@ -1,6 +1,5 @@
 import React from "react"
 import PlaylistsDetails from "../PlaylistDetails/PlaylistDetails"
-import {HiOutlineTrash} from 'react-icons/hi'
 import {
   Playlists,
   PlaylistCard,
@@ -8,7 +7,6 @@ import {
   HeadingPlaylist,
   PlaylistsContainer,
 } from "./StyledUserPlaylist"
-
 export default class UserPlaylists extends React.Component {
   state = {
     page: false,

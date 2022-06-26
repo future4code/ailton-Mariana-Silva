@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const SpotifyContainer = styled.div`
   padding: 4rem 2rem 2rem;

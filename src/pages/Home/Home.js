@@ -9,7 +9,6 @@ import Swal from 'sweetalert2'
 import { BASE_URL } from "../../constants/urls"
 import { HEADERS } from "../../constants/headers"
 import { HomePage, MainContainer } from "./StyledHome"
-
 export default class Home extends React.Component {
 state = {
   playlists: [],
@@ -104,19 +103,19 @@ renderPages = () => {
   }
 }
 pageHome = () => {
-  this.setState({ page: "home" });
+  this.setState({ page: "home" })
 }
 pagePlaylists = () => {
-  this.setState({ page: "playlists" });
+  this.setState({ page: "playlists" })
 }
 pagePlaylistsDetails = () => {
-  this.setState({ page: "details" });
+  this.setState({ page: "details" })
 }
 pageCreatePlaylists = () => {
-  this.setState({ page: "create" });
+  this.setState({ page: "create" })
 }
 pageAddTracks = () => {
-  this.setState({ page: "add" });
+  this.setState({ page: "add" })
 }
 render() {
   return (

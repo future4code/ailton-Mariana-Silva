@@ -4,7 +4,6 @@ import Swal from 'sweetalert2'
 import { BASE_URL } from "../../constants/urls"
 import { HEADERS } from "../../constants/headers"
 import { MainContainer } from "./StyledCreatePlaylist"
-
 export default class CreatePlaylists extends React.Component {
 state = {
   playlist: "",

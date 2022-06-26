@@ -15,7 +15,7 @@ import {
   SecondContainerItem,
   ContainerItems,
   MenuMobile,
-} from "./StyledSidebar";
+} from "./StyledSidebar"
 
 const loading = () => {
   Swal.fire("", "Estamos Trabalhando nessa Ferramenta!", "error");

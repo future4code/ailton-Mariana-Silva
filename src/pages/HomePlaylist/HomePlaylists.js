@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {ImSpotify} from "react-icons/im"
 import { SpotifyContainer, Title, SpotifyItems } from "./StyledHomePlaylist"
 
