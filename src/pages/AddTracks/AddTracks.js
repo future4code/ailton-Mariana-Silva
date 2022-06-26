@@ -30,32 +30,40 @@ addTrackToPlaylist = async (id) => {
       `${BASE_URL}/${this.props.playlistId}/tracks`,
       body,
       HEADERS
-    )
-    Swal.fire("", "Música Adicionada com Sucesso!", "success");
-    this.setState({ name: "", artist: "", urlTrack: "" });
-    this.props.getPlaylistTracks(this.props.playlistId);
-  } catch (err) {
-    Swal.fire("", "Ops! Algo deu Errado - Tente Novamente!", "error");
+      )
+      Swal.fire("", "Música Adicionada com Sucesso!", "success");
+      this.setState({ name: "", artist: "", urlTrack: "" });
+      this.props.getPlaylistTracks(this.props.playlistId);
+    } catch (err) {
+      Swal.fire("", "Ops! Algo deu Errado - Tente Novamente!", "error");
+    }
   }
-}
-render() {
-  return (
+  inputEnter = (event) => {
+    if (event.key === 'Enter') {
+        this.addTrackToPlaylist();
+    }
+  }
+  render() {
+    return (
     <AddContainer>    
         <MainContainer>
           <input
             placeholder={"Digite o Nome da Música"}
             value={this.state.name}
             onChange={this.onChangeName}
+            onKeyPress={this.inputEnter}
           />
           <input
             placeholder={"Digite o Nome do Artista"}
             value={this.state.artist}
             onChange={this.onChangeArtist}
+            onKeyPress={this.inputEnter}
           />
           <input
             placeholder={"Digite url da Música"}
             value={this.state.urlTrack}
             onChange={this.onChangeURL}
+            onKeyPress={this.inputEnter}
           />
           <button onClick={() => this.addTrackToPlaylist()}>Adicionar</button>
         </MainContainer>     

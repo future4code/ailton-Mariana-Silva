@@ -6,9 +6,9 @@ export const AddContainer = styled.div`
   background: black;
   position: fixed;
   padding: 20px 40px;
+  height: 100vh;
   @media (max-width: 480px) {
       width: 60%;
-      height: 100vh;
   }
 `
 export const MainContainer = styled.div`

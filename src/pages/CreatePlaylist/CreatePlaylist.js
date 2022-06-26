@@ -23,6 +23,11 @@ createPlaylist = async () => {
     Swal.fire("", "Ops! Algo deu Errado - Tente Novamente!", "error");
   }
 }
+inputEnter = (event) => {
+  if (event.key === 'Enter') {
+      this.createPlaylist();
+  }
+}
 render() {
   return (
     <div>
@@ -32,6 +37,7 @@ render() {
           placeholder={"Digite o nome da sua PlayList"}
           value={this.state.playlist}
           onChange={this.onChangePlaylistName}
+          onKeyPress={this.inputEnter}
         />
         <button onClick={this.createPlaylist}>Criar Playlist</button>
       </MainContainer>
