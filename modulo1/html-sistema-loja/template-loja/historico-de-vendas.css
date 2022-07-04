@@ -1,0 +1,64 @@
+body {
+    background-color: papayawhip;
+    text-align: center;
+}
+
+.nome-alterado p{
+    color: palevioletred;
+    font-size: 25px;
+}
+
+
+.links-alterados a{
+    color: plum;
+}
+
+.botao-alterado {
+    color: blue;
+    background-color: pink;
+}
+
+.historico-de-vendas h2 {
+    color: blue;
+
+}
+input[type="number"]{
+    outline:none;
+    border-right: 0px;
+    border-top: 1px;
+    border-left: 1px;
+    }
+
+.redes-alterada p {
+    color: plum;
+}
+
+table {
+    color:blue;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.tabela-4-alterada th {
+    color: blue;
+    background-color: plum;
+    padding: 5px;
+    text-align: center;
+}
+
+.tabela-4-alterada td {
+    color: blue;
+    background-color: pink;
+    padding: 5px;
+    text-align: center;
+    
+}
+
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    text-align: center;
+}

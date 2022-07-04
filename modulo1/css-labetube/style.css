@@ -1,0 +1,127 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 60px;
+    padding: 10px;
+    background-color: orange;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    justify-content: space-between;
+}
+p{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+h2{
+    text-align: left;
+}
+.tela{
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    height: 100%;
+    width: 100%;
+    border-style: groove;
+    border-color: lightgreen;
+}
+h1 {
+    margin-left: 20px;
+}
+#imput{
+    margin-right: 3.12rem;
+    width: 18.75rem;
+    height: 1.56rem;
+}
+.media{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(40vh, 1fr));
+    margin: 4%;
+    padding: 10px;
+    gap: 1.25rem;
+}
+.tela video{
+    height: 100%;
+    width: 100%;
+}
+
+.media8 a{
+    padding-bottom: 10rem;
+}
+
+footer{
+    position: fixed;
+    width: 100%;
+    bottom:0;
+    padding: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 70px;
+    color: white;
+    background-color: rgb(46, 46, 46); 
+}
+/* Videos 1-8 */
+.video h2 {
+    height: 60px;
+}
+.video{
+    text-align: center;
+    justify-content: center;
+    margin: 20%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+@media screen and (min-width: 320px) and (max-width : 480px) {
+      
+    .tela {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        margin-top: 3.12rem;   
+    }
+
+    .video {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        margin-top: 5rem;
+    }
+} 
+
+@media screen and (min-device-width: 481px) and (max-device-width: 800px) {
+    .tela {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        margin-top: 3.12rem;   
+    }
+    .video {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        margin-top: 5rem;
+    }
+}
+
+
+    .tela {
+        display: grid;
+        grid-template-rows: 3fr 1fr;
+        height: 100%;
+        width: 100%;
+    }
+    .video {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; 
+        margin-top: 5rem;
+        text-align: center;
+    }
