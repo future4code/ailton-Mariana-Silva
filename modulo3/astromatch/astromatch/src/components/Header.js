@@ -1,18 +1,21 @@
-import { SiTinder } from 'react-icons/si'
-import { FaUserFriends } from 'react-icons/fa'
+import { SiTinder } from "react-icons/si";
+import { FaUserFriends } from "react-icons/fa";
+import { HeaderContainer, AppName } from "./styled";
 
-function Header (props) {
-    return (
-        <div>
-            <h1>AstroMatch</h1>
+function Header(props) {
+  return (
+    <HeaderContainer>
+      <AppName>
+        astro<span>Match</span>
+      </AppName>
 
-            {props.page === 'profiles-page' ?
-                < SiTinder onClick={props.goToMatchesPage} />
-                : < FaUserFriends onClick={props.goToProfilesPage} />
-            }
-            
-        </div>
-    )
+      {props.page === "profiles-page" ? (
+        <SiTinder className="fire" onClick={props.goToMatchesPage} />
+      ) : (
+        <FaUserFriends className="people" onClick={props.goToProfilesPage} />
+      )}
+    </HeaderContainer>
+  );
 }
 
-export default Header
+export default Header;
