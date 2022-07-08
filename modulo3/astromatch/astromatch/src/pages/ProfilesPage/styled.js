@@ -3,15 +3,16 @@ import styled from "styled-components";
 export const Section = styled.section`
   margin: 0 auto;
   text-align: center;
-  width: 320px;
+  width: 330px;
   min-height: 300px;
-  height: 75vh;
+  height: 95%;
   background-color: black;
   display: flex;
   flex-direction: column;
   user-select: none;
 `;
 export const CardContainer = styled.div`
+  height: 90%;
   h4 {
     text-align: center;
     svg {
@@ -38,7 +39,7 @@ export const CardContainer = styled.div`
   }
   .reset {
     cursor: pointer;
-    margin-top: 27px;
+    margin-top: 23px;
     height: 23px;
     background-color: black;
     color: white;

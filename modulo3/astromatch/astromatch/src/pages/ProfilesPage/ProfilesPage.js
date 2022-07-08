@@ -6,9 +6,12 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { VscDebugStepBack } from "react-icons/vsc";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { Section, CardContainer, Buttons, Photo, Bio } from "./styled";
+import Loading from "../../components/Loading";
+import swal from "sweetalert2";
 
-function ProfilesPage(props) {
+function ProfilesPage() {
   const [profile, setProfile] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getProfile();
@@ -16,14 +19,17 @@ function ProfilesPage(props) {
 
   const getProfile = () => {
     const url = `${BASE_URL}/${headers}/person`;
+    setIsLoading(false);
+    setProfile([]);
 
     axios
       .get(url)
       .then((response) => {
         setProfile(response.data.profile);
+        setIsLoading(true);
       })
       .catch((error) => {
-        alert("Tente novamente mais tarde");
+        swal.fire(`${error.message}`, "Tente novamente mais tarde!", "error");
         console.log(error.message);
       });
   };
@@ -41,11 +47,12 @@ function ProfilesPage(props) {
       .post(url, body)
       .then((response) => {
         if (choice && response.data.isMatch) {
-          alert("It's a 🔥 Match!");
+          swal.fire("It's a🔥Match!", "", "success");
         }
         getProfile();
       })
       .catch((error) => {
+        swal.fire(`${error.message}`, "Tente novamente mais tarde!", "error");
         console.log(error.message);
       });
   };
@@ -56,19 +63,21 @@ function ProfilesPage(props) {
     axios
       .put(url)
       .then(() => {
-        alert("Perfis resetados com sucesso!");
+        swal.fire("", "Perfis resetados com sucesso!", "success");
         getProfile();
       })
       .catch((error) => {
+        swal.fire("", "Tente novamente mais tarde!", "error");
         console.log(error.message);
       });
   };
+
   const profileCard = profile ? (
     <Section>
       <Photo photo={profile.photo} name={profile.name}>
         <Bio>
           <h4>
-            {profile.name}, {profile.age} <AiOutlineCheckCircle />{" "}
+            {profile.name}, {profile.age} <AiOutlineCheckCircle />
           </h4>
           <hr />
           <p>{profile.bio}</p>
@@ -84,19 +93,23 @@ function ProfilesPage(props) {
           onClick={() => chooseProfile(profile.id, true)}
         />
       </Buttons>
+      <button className="reset" onClick={() => resetProfiles()}>
+        Resetar Perfis <VscDebugStepBack />
+      </button>
     </Section>
   ) : (
     <div>
       <h3>Seus Matches Acabaram! Clique em "Resetar Perfis" para reiniciar</h3>
+      <button className="reset" onClick={() => resetProfiles()}>
+        Resetar Perfis <VscDebugStepBack />
+      </button>
     </div>
   );
 
   return (
     <CardContainer>
-      {profileCard}
-      <button className="reset" onClick={() => resetProfiles()}>
-        Resetar Perfis <VscDebugStepBack />
-      </button>
+      {!isLoading && <Loading />}
+      {isLoading && profileCard}
     </CardContainer>
   );
 }

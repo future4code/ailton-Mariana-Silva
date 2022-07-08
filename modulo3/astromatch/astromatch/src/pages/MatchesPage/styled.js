@@ -24,6 +24,18 @@ export const MatchesContainer = styled.ul`
     text-align: center;
     color: white;
   }
+  .reset {
+    cursor: pointer;
+    margin-left: 34%;
+    height: 23px;
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    :hover {
+      background-color: grey;
+    }
+  }
 `;
 export const Photo = styled.img`
   width: 60px;

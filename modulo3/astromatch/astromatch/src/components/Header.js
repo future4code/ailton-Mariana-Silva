@@ -1,6 +1,6 @@
 import { SiTinder } from "react-icons/si";
 import { FaUserFriends } from "react-icons/fa";
-import { HeaderContainer, AppName } from "./styled";
+import { HeaderContainer, AppName } from "./headerStyled";
 
 function Header(props) {
   return (
