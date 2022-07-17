@@ -47,7 +47,14 @@ const ApplicationFormPage = () => {
       .then((res) => {
         Swal.fire("", "Inscrição Enviada!", "success");
       })
-      .catch((err) => err.response);
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado. Verifique o preenchimento de todos os campos",
+          footer: `Código do erro ${err.response.status}`,
+        });
+      });
 
     cleanFields();
   };
@@ -86,6 +93,8 @@ const ApplicationFormPage = () => {
             onChange={onChange}
             placeholder={"Nome"}
             required
+            pattern={"^.{3,}"}
+            title={"Seu nome deve ter no mínimo 3 caracteres"}
           />
           <Input
             name="age"
@@ -102,8 +111,8 @@ const ApplicationFormPage = () => {
             onChange={onChange}
             placeholder={"Texto de Candidatura"}
             required
-            pattern={"^.{10,}"}
-            title={"Seu texto de candidatura deve ter no mínimo 10 caracteres"}
+            pattern={"^.{30,}"}
+            title={"Seu texto de candidatura deve ter no mínimo 30 caracteres"}
           />
           <Input
             name="profession"
@@ -111,8 +120,8 @@ const ApplicationFormPage = () => {
             onChange={onChange}
             placeholder={"Profissão"}
             required
-            pattern={"^.{4,}"}
-            title={"Sua profissão deve ter no mínimo 4 caracteres"}
+            pattern={"^.{10,}"}
+            title={"Sua profissão deve ter no mínimo 10 caracteres"}
           />
           <Select
             value={form.country}

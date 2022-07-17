@@ -52,7 +52,12 @@ export default function AdminHomePage() {
           window.location.reload();
         })
         .catch((err) => {
-          Swal.fire("", err, "error");
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Algo deu errado. Tente novamente mais tarde",
+            footer: `Código do erro ${err.response.status}`,
+          });
         });
     }
   };

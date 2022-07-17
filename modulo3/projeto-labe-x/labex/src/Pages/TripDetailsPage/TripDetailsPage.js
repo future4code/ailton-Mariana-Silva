@@ -39,8 +39,13 @@ const TripDetailsPage = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        Swal.fire(err.response.data);
-      });
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Algo deu errado, verifique o preenchimento de todos os campos",
+            footer: `Código do erro ${err.response.status}`,
+          });
+        });
   };
   useEffect(() => {
     setIsLoading(true);
@@ -75,7 +80,12 @@ const TripDetailsPage = () => {
         }
       })
       .catch((err) => {
-        Swal.fire(err.response.data.message);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado. Tente novamente mais tarde",
+          footer: `Código do erro ${err.response.status}`,
+        });
       });
   };
 

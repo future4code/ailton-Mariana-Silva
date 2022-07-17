@@ -51,7 +51,14 @@ const CreatTripPage = () => {
     axios
       .post(`${BASE_URL}/trips`, body, headers)
       .then((res) => Swal.fire("", "Viagem criada com sucesso!", "success"))
-      .catch((err) => err);
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Algo deu errado. Verifique o preenchimento de todos os campos",
+          footer: `Código do erro ${err.response.status}`,
+        });
+      });
 
     cleanFields();
   };

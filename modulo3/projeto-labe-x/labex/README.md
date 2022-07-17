@@ -19,9 +19,9 @@ Detalhes das viagem onde também é possivel aprovar ou reprovar um candidato à
 - Responsividade Funcional
 
 ### Wireframe 
-https://empty-knee.surge.sh
+https://app.uizard.io/p/2adc1b44
 ### Link Surge
-http://trashy-cave.surge.sh
+http://even-grip.surge.sh
 ### Acesso Administrativo
 Para acessar a área administrativa é necessario usar os dados abaixo:
 E-mail: adm@labex.com.br
