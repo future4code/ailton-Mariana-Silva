@@ -1,12 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import GlobalState from "./global/GlobalState"
+import Router from "./routes/Router"
+import { GlobalStyle } from "./styled"
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-     <h1>labEddit</h1>
-    </div>
-  );
+    <GlobalState>
+        <GlobalStyle/>
+        <Router/>
+    </GlobalState>
+  )
 }
 
-export default App;
+export default App
