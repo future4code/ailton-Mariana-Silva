@@ -37,4 +37,4 @@ const romano = (num: any): string => {
   return resultado;
 };
 
-console.log(romano("1400"));
+console.log(romano("1402"));

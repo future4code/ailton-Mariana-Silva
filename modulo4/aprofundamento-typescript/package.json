@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "typescript": "^4.7.4"
+  },
+  "name": "aprofundamento-typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "start": "tsc && node ./build/index.js",
+    "exercicio1": "tsc && node ./build/exercicio1/exercicio1.js",
+    "exercicio2": "tsc && node ./build/exercicio2/exercicio2.js",
+    "exercicio3": "tsc && node ./build/exercicio3/exercicio3.js",
+    "exercicio4": "tsc && node ./build/exercicio4/exercicio4.js",
+    "exercicio5": "tsc && node ./build/exercicio5/exercicio5.js",
+    "exercicio6": "tsc && node ./build/exercicio6/exercicio6.js",
+    "exercicio7": "tsc && node ./build/exercicio7/exercicio7.js",
+    "exercicio8": "tsc && node ./build/exercicio8/exercicio8.js",
+    "exercicio9": "tsc && node ./build/exercicio9/exercicio9.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
