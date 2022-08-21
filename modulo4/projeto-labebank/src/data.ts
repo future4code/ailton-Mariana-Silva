@@ -1,10 +1,11 @@
+//Exercicio3
 export type Statement = {
     billValue: number;
     descriptionBillToPay: string;
     billPaymentDate: string;
   }
 ;
-
+//Exercicio1
 export type User = {
   name: string;
   cpf: string;
@@ -12,7 +13,7 @@ export type User = {
   balance: number;
   statement: Statement[];
 };
-
+//Exercicio2 e Exercicio4
 export let users: User[] = [
   {
     name: "Jil Mayumi",

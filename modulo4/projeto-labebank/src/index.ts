@@ -14,7 +14,7 @@ app.get("/test", (req: Request, res: Response) => {
   });
 });
 
-//Endpoint 1 - Create user
+//Endpoint 1 (ex5 - ex7) - Create user
 app.post("/users", (req: Request, res: Response) => {
   try {
     const { name, cpf, birthDate } = req.body;
@@ -67,7 +67,7 @@ app.post("/users", (req: Request, res: Response) => {
   }
 });
 
-//Endpoint 2 - Get all users
+//Endpoint 2 (ex6) - Get all users
 app.get("/users", (req: Request, res: Response) => {
   try {
     if (!users) {
@@ -80,7 +80,7 @@ app.get("/users", (req: Request, res: Response) => {
   }
 });
 
-//Endpoint 3 - Get user balance
+//Endpoint 3 (desafio2) - Get user balance
 app.get("/users/:cpf", (req: Request, res: Response) => {
   try {
     const { cpf } = req.params;
@@ -109,7 +109,7 @@ app.get("/users/:cpf", (req: Request, res: Response) => {
   }
 });
 
-//Endpoint 4 - Put Add deposit
+//Endpoint 4 (desafio3 e desafio4) - Put Add deposit
 app.put("/users", (req: Request, res: Response) => {
   try {
     const { name, cpf, value, descriptionBillToPay } = req.body;
@@ -154,9 +154,182 @@ app.put("/users", (req: Request, res: Response) => {
   }
 });
 
-//Endpoint 5 - Put pay bill
+//Endpoint 5 (desafio5) - Post pay bill
+app.post("/users/payment", (req: Request, res: Response) => {
+  try {
+    const { name, cpf, billValue, description } = req.body;
 
+    if (!name || !cpf || !billValue) {
+      res.statusCode = 422;
+      throw new Error("Check the parameters!");
+    }
 
+    if (!users) {
+      res.statusCode = 404;
+      throw new Error("Not found list users");
+    }
+
+    const date = new Date();
+    const actualDate = `${date.getDay()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+
+    const paymentValue = billValue * -1;
+
+    const newStatement: any = {
+      billValue: paymentValue,
+      description: description,
+      date: actualDate,
+    };
+
+    const existsUser =
+      users.filter((item) => {
+        if (item.cpf === cpf && item.name === name) {
+          item.statement.push(newStatement);
+          return item;
+        }
+      }).length !== 0;
+
+    if (!existsUser) {
+      res.statusCode = 412;
+      throw new Error("CPF, name not registered");
+    }
+    res.status(200).send({ message: `Account balance`, data: users });
+  } catch (error: any) {
+    res.status(res.statusCode || 500).send({ message: error.message });
+  }
+});
+
+//Endpoint 6 (desafio6) - Put updated balance
+app.put("/users/updatedBalance", (req: Request, res: Response) => {
+  try {
+    const { name, cpf, billValue } = req.body;
+
+    if (!name || !cpf || !billValue) {
+      res.statusCode = 422;
+      throw new Error("Check the parameters!");
+    }
+
+    if (!users) {
+      res.statusCode = 404;
+      throw new Error("Not found list users");
+    }
+
+    const date = new Date();
+    const actualDate = `${date.getDay()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
+
+    const existsUser =
+      users.filter((item) => {
+        if (item.cpf === cpf && item.name === name) {
+          item.statement.map((item) => {
+            if (item.billPaymentDate < actualDate) {
+              console.log(typeof item.billPaymentDate);
+              console.log(typeof actualDate);
+            }
+          });
+        }
+      }).length !== 0;
+
+    if (!existsUser) {
+      res.statusCode = 412;
+      throw new Error("CPF, name not registered");
+    }
+    res.status(200).send({ message: `Account balance`, data: users });
+  } catch (error: any) {
+    res.status(res.statusCode || 500).send({ message: error.message });
+  }
+});
+//Endpoit 7 (desafio9, 10 e 11) - Transfer
+app.post("/users/transfer", (req, res) => {
+  const { cpfPayer, cpfReceiver, value } = req.body;
+  const namePayed = req.body.name as string;
+  const nameReceiver = req.body.toName as string;
+ 
+  try {
+    if (!users) {
+      res.statusCode = 404;
+      throw new Error("List not found.");
+    }
+
+    if (!namePayed || !cpfPayer || !nameReceiver || !cpfReceiver || !value) {
+      res.statusCode = 400;
+      throw new Error(
+        "Inform your name and CPF, the value, name and CPF of the person you want to transfer for."
+      );
+    }
+    const client: User | undefined = users.find((item) => {
+      return item.name === namePayed && item.cpf === cpfPayer;
+    });
+
+    const clientToPay: User | undefined = users.find((item) => {
+      return item.name === nameReceiver && item.cpf === cpfReceiver;
+    });
+
+    if (!client) {
+      res.statusCode = 404;
+      throw new Error("Client with this name and CPF not found");
+    }
+
+    if (!clientToPay) {
+      res.statusCode = 404;
+      throw new Error("Receiver client with this name and CPF not found");
+    }
+    let hasBalanceToPay: number = 0;
+    if (client !== undefined && clientToPay !== undefined) {
+      hasBalanceToPay = client?.balance - Number(value);
+    }
+
+    if (
+      client !== undefined &&
+      clientToPay !== undefined &&
+      hasBalanceToPay < 0
+    ) {
+      res.statusCode = 401;
+      throw new Error(
+        "Client does not have enough balance for this transaction."
+      );
+    }
+
+    const today = new Date();
+    const newToday: string = `${today.getDate()}/${
+      today.getMonth() + 1
+    }/${today.getFullYear()}`;
+
+    if (
+      client !== undefined &&
+      clientToPay !== undefined &&
+      hasBalanceToPay >= 0
+    ) {
+      client.statement = [
+        ...client.statement,
+        {
+          billValue: -1 * Number(value),
+          billPaymentDate: newToday,
+          descriptionBillToPay: `Transfer to ${nameReceiver}`,
+        },
+      ];
+
+      clientToPay.statement = [
+        ...clientToPay.statement,
+        {
+          billValue: Number(value),
+          billPaymentDate: newToday,
+          descriptionBillToPay: `Transfer from ${nameReceiver}`,
+        },
+      ];
+
+      res.status(200).send({
+        message: "Transfer performed successfully",
+        data: client.statement,
+        dataTo: clientToPay.statement,
+      });
+    }
+  } catch (error: any) {
+    res.status(res.statusCode || 500).send({ message: error.message });
+  }
+});
 
 app.listen(3003, () => {
   console.log("Servidor rodando na porta 3003.");
