@@ -11,4 +11,4 @@ GET http://localhost:3003/usersOrdered?info=name
 ### Exercicio 3
 GET http://localhost:3003/fiveUsers?page=1&size=5
 ### Exercicio 4
-GET http://localhost:3003/allFunctions?
+GET http://localhost:3003/allFunctions?info=name&page=1&size=5

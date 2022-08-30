@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import selectAllUsers from "../data/selectAllUsers";
-import { connection } from "../data/dataBase";
 
 export const getAllUsers = async (
   req: Request,

@@ -13,15 +13,17 @@ export async function getAllFunctions(
      let page = Number(req.query.page)
      let size = Number(req.query.size)
      let offset = size*(page-1)
+     let ordenation = "ASC"
 
  
    if(!name){
       name =""
     }
     if(info !== "name" && info !=="type"){
-      info = "name"
+      info = "name"; 
+      ordenation = "DESC"
    }
-  
+
     if(page < 1) {
       page = 1
     }
@@ -33,7 +35,7 @@ export async function getAllFunctions(
      .select()
      .where("name", "like", `%${name}%`)
      .orWhere("type", "like", `%${type}`)
-     .orderBy(info, "DESC")
+     .orderBy(info, ordenation)
      .limit(size)
      .offset(offset)
 
