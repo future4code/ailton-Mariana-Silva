@@ -4,7 +4,7 @@ export const createProduct = async(
   name: string,
   price: number,
   image_url: string
-): Promise<void> => {
+): Promise<any> => {
     return await connection("labecommerce_products").insert({
     name,
     price,

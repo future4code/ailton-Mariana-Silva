@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "clear && ts-node-dev ./src/index.ts",
+    "dev": "tsc && ts-node-dev ./src/index.ts",
     "start": "tsc && node ./build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

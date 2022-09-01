@@ -17,7 +17,7 @@ CREATE TABLE labecommerce_users (
       SELECT * FROM labecommerce_products;
 
       CREATE TABLE labecommerce_purchases (
-         id VARCHAR(255) PRIMARY KEY,
+         id INT PRIMARY KEY AUTO_INCREMENT,
          user_id  INT,
          product_id INT,
          quantity INT NOT NULL,

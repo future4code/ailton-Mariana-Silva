@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { createProduct } from "../data/createProduct"
 
-export const postProduct = async (req: Request, res: Response): Promise<void> => {
+export const postProduct = async (req: Request, res: Response): Promise<any> => {
     try {
         const { name, price, image_url } = req.body
 

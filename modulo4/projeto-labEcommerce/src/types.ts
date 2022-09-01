@@ -10,15 +10,15 @@ export type Product = {
   id: number;
   name: string;
   price: number;
-  imgUrl: string;
+  image_url: string;
 };
 
 export type Purchase = {
   id: number;
-  userId: string;
-  productId: string;
-  productName: string;
+  user_id: number;
+  product_id: number;
+  product_name: string;
   quantity: number;
   price: number;
-  totalPrice: number;
+  total_price: number;
 };
