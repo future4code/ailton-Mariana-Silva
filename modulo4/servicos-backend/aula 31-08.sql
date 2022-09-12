@@ -1,0 +1,10 @@
+CREATE TABLE AddressTable (
+id INT PRIMARY KEY auto_increment,
+CEP VARCHAR(8) NOT NULL,
+logradouro VARCHAR(255),
+numero VARCHAR(255) NOT NULL,
+complemento VARCHAR(255),
+bairro VARCHAR(255) NOT NULL,
+cidade VARCHAR(255) NOT NULL,
+estado VARCHAR(255) NOT NULL
+);

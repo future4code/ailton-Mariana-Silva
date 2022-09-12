@@ -1,0 +1,10 @@
+###
+GET HTTP://localhost:3003/connectionTest
+###
+POST HTTP://localhost:3003/create/06332330
+content-type: application/json
+
+{
+"Numero":"98",
+"Complemento":"Casa"
+}
