@@ -1,0 +1,14 @@
+### Test
+GET http://localhost:3003/connectionTest
+### AllUsers
+GET http://localhost:3003/allUsers
+### 1-a)
+GET http://localhost:3003/userByName?name=miau
+### 1-b)
+GET http://localhost:3003/userByType/cx
+### Exercicio 2
+GET http://localhost:3003/usersOrdered?info=name
+### Exercicio 3
+GET http://localhost:3003/fiveUsers?page=1&size=5
+### Exercicio 4
+GET http://localhost:3003/allFunctions?info=name&page=1&size=5
