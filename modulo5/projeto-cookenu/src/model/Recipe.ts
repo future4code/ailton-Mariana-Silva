@@ -3,7 +3,8 @@ export class Recipe {
     private recipe_id: string,
     private recipe_title: string,
     private recipe_description: string,
-    private author_id: string
+    private author_id: string,
+    private creation_date: string
   ) {}
 
   public getId() {
@@ -20,5 +21,8 @@ export class Recipe {
 
   public getAuthorId() {
     return this.author_id;
+  }
+  public getCreationDate() {
+    return this.creation_date;
   }
 }

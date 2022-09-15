@@ -1,15 +1,11 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { Console } from "console";
+import { typeUser } from "../model/User";
 
 dotenv.config();
 
-export enum typeUser {
-  ADMIN = "ADMIN",
-  NORMAL = "NORMAL",
-}
 interface UserSystem {
-  id: string;
+  user_id: string;
   role: typeUser;
 }
 
@@ -21,7 +17,7 @@ export class Authenticator {
       },
       process.env.JWT_KEY as string,
       {
-        expiresIn: "1hr",
+        expiresIn: "24hr",
       }
     );
 

@@ -9,10 +9,11 @@ export class UserDataBase extends dataBase {
         user_name: user.getName(),
         user_email: user.getEmail(),
         user_password: user.getPassword(),
+        role: user.getRole(),
       })
       .into("cookenu_users");
 
-    return `User ${user.getName()} created successfully`;
+    return `User created successfully`;
   };
 
   getUserByEmail = async (user_email: string): Promise<User | undefined> => {
@@ -28,7 +29,8 @@ export class UserDataBase extends dataBase {
         result[0].user_id,
         result[0].user_name,
         result[0].user_email,
-        result[0].user_password
+        result[0].user_password,
+        result[0].role
       );
       return user;
     }
@@ -57,9 +59,48 @@ export class UserDataBase extends dataBase {
         result[0].user_id,
         result[0].user_name,
         result[0].user_email,
-        result[0].user_password
+        result[0].user_password,
+        result[0].role
       );
       return user;
     }
+  };
+
+  postFollowUser = async (
+    followed_id: string,
+    follower_id: string
+  ): Promise<string> => {
+    const result = await this.getConnection()
+      .insert({
+        followed_id: followed_id,
+        follower_id: follower_id,
+      })
+      .into("cookenu_followers");
+
+    return `Followed successfully`;
+  };
+
+  deleteFollowUser = async (
+    followed_id: string,
+    follower_id: string
+  ): Promise<string> => {
+    const result = await this.getConnection()
+      .delete("*")
+      .where({
+        followed_id: followed_id,
+        follower_id: follower_id,
+      })
+      .from("cookenu_followers");
+
+    return `Unfollow successfully`;
+  };
+
+  delUserById = async (user_id: string) => {
+    const result = await this.getConnection()
+      .delete("*")
+      .from("cookenu_users")
+      .where({ user_id });
+
+    return `User deleted successfully`;
   };
 }
