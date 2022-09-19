@@ -132,11 +132,7 @@ export class userEndpoint {
       const userById = await newUserData.getUserById(authenticationUser);
 
       res.status(200).send({
-        message: {
-          user_id: userById?.getId(),
-          user_name: userById?.getName(),
-          user_email: userById?.getEmail(),
-        },
+        userById,
       });
     } catch (error: any) {
       res
@@ -255,28 +251,25 @@ export class userEndpoint {
 
   getFeedByFollower = async (req: Request, res: Response) => {
     try {
-      const token = req.headers.authorization!;
 
-      const authenticationUser: any = new Authenticator().verifyToken(token);
-      if (!authenticationUser) {
-        throw new PermissionDenied();
+      const token = req.headers.authorization
+
+      if (!token) {
+          throw new Error ("tst")
       }
 
-      const newRecipeData = new RecipeDataBase();
+      // verificar se o token é valido
+      const user_id: any = new Authenticator().verifyToken(token)
 
-      const feed = await newRecipeData.getRecipeByFollower(authenticationUser);
-      console.log(feed);
+      const userData = new UserDataBase();
 
-      if (!feed) {
-        throw new NotFollowing();
-      }
+      const searchFeed = await userData.getRecipeByFollower(user_id)
 
-      res.status(200).send({ message: feed });
-    } catch (error: any) {
-      res
-        .status(error.statusCode || 500)
-        .send({ message: error.message || error.sqlMessage });
-    }
+      res.status(200).send(searchFeed)
+  } catch (error: any) {
+
+      res.status(error.statusCode || 500).send({ message: error.message })
+  }
   };
 
   deleteById = async (req: Request, res: Response) => {

@@ -35,25 +35,6 @@ export class RecipeDataBase extends dataBase {
       return recipe;
     }
   };
-  getRecipeByFollower = async (user_id: string): Promise<any> => {
-    const result = await this.getConnection()
-      .select(
-        "recipe_id",
-        "recipe_title",
-        "recipe_description",
-        "author_id",
-        "creation_date",
-        "user_name"
-      )
-      .from("cookenu_recipes")
-      .join("cookenu_users", "user_id", "user_name")
-      .join("cookenu_followers", "followed_id", "user_id")
-      .where({ follower_id: `${user_id}` })
-      .orderBy("creation_date");
-    console.log(result);
-
-    return result;
-  };
 
   editRecipe = async (
     recipe_id: string,
