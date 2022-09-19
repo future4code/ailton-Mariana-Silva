@@ -1,0 +1,29 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+### 1) Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "Beltrano",
+    "email": "beltrano@gmail.com",
+    "password": "abc123"
+}
+
+### 2) Login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "beltrano@gmail.com",
+    "password": "abc123"
+}
+
+### 3) Get users
+GET http://localhost:3003/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI0ZjkzZGQ1LWU2NTgtNGIwZS05ZWZmLWIyNjYwMjBkZTZiOCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTk1MzQ5NzQsImV4cCI6MTY1OTYyMTM3NH0.E3nB9HTT3Pl3sMsc8U49ISPxx2uKGFv6oQ6R7f88iws
+
+### 3) Delete user
+GET http://localhost:3003/users/f03017bb-2c08-4cdc-bb63-7fbd7cebe01f
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI0ZjkzZGQ1LWU2NTgtNGIwZS05ZWZmLWIyNjYwMjBkZTZiOCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NTk1MzQ5NzQsImV4cCI6MTY1OTYyMTM3NH0.E3nB9HTT3Pl3sMsc8U49ISPxx2uKGFv6oQ6R7f88iws
