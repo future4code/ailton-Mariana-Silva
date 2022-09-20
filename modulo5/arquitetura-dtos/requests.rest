@@ -1,0 +1,35 @@
+### 1) Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "Beltrano",
+    "email": "beltrano2@gmail.com",
+    "password": "abc123"
+}
+
+### 2) Login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "astrodev@gmail.com",
+    "password": "bananinha"
+}
+
+### 3) Get users
+GET http://localhost:3003/users
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzY5MjA2OCwiZXhwIjoxNjYzNzc4NDY4fQ.B8zQREotEbLXUWSlugUKxLCIVKAedGWt9t_sqzpyfJU
+
+### 4) Delete user
+DELETE http://localhost:3003/users/ccbfbff9-031d-4ebc-b9c3-333261c81aa1
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzY5MjA2OCwiZXhwIjoxNjYzNzc4NDY4fQ.B8zQREotEbLXUWSlugUKxLCIVKAedGWt9t_sqzpyfJU
+
+### EXTRA) Edit user
+PUT http://localhost:3003/users/bb9b7ee8-ae4b-4bd1-9bd6-e7e21594399b
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiOWI3ZWU4LWFlNGItNGJkMS05YmQ2LWU3ZTIxNTk0Mzk5YiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2MzY5MjA2OCwiZXhwIjoxNjYzNzc4NDY4fQ.B8zQREotEbLXUWSlugUKxLCIVKAedGWt9t_sqzpyfJU
+Content-Type: application/json
+
+{
+    "name": "Astrodev3"
+}
