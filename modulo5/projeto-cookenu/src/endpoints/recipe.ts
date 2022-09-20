@@ -107,7 +107,6 @@ export class recipeEndpoint {
       } else {
         throw new PermissionDenied();
       }
-      console.log(result);
       res.status(200).send({
         message: result,
       });

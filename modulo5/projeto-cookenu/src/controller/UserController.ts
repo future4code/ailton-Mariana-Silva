@@ -1,16 +1,9 @@
 import { Request, Response } from "express";
 import { InvalidCredentials } from "../error/InvalidCredentials";
-import { EmailExists } from "../error/EmailExists";
 import { HashManager } from "../services/HashManager";
-import { IncorrectPassword } from "../error/IncorrectPassword";
-import { PermissionDenied } from "../error/PermissionDenied";
 import { GenerateId } from "../services/IdGenarator";
 import { Authenticator } from "../services/Authenticator";
 import { feedDB, User, userDTO } from "../model/User";
-import { EmailNoExists } from "../error/EmailNoExists";
-import { MissingFields } from "../error/MissingFields";
-import { RecipeDataBase } from "../data/recipeDataBase";
-import { NotFollowing } from "../error/NotFollowing";
 import { UserBusiness } from "../business/UserBusiness";
 
 export class UserController {
@@ -93,15 +86,15 @@ export class UserController {
 
   postFollow = async (req: Request, res: Response) => {
     try {
-      const { followed_id } = req.body;
+      const { follower_id } = req.body;
       const token = req.headers.authorization!;
 
       const authenticationUser: any = new Authenticator().verifyToken(token);
 
       const userBusiness = new UserBusiness();
 
-      const searchFeed = await userBusiness.postFollow(followed_id, token);
-      console.log("search feed", searchFeed);
+      const searchFeed = await userBusiness.postFollow(follower_id, token);
+  
       res.status(200).send({
         message: { searchFeed },
       });
@@ -114,14 +107,14 @@ export class UserController {
 
   deleteFollow = async (req: Request, res: Response) => {
     try {
-      const { followed_id } = req.body;
+      const { follower_id } = req.body;
       const token = req.headers.authorization!;
 
       const authenticationUser: any = new Authenticator().verifyToken(token);
 
       const newuserBusiness = new UserBusiness();
 
-      const userById = await newuserBusiness.deleteFollow(followed_id, token);
+      const userById = await newuserBusiness.deleteFollow(follower_id, token);
 
       res.status(200).send({
         message: { userById },
@@ -135,20 +128,13 @@ export class UserController {
 
   getFeedByFollower = async (req: Request, res: Response) => {
     try {
-      const token = req.headers.authorization!;
-
-      console.log("token",token)
-      
-      const authenticationUser: any = new Authenticator().verifyToken(token);
-      
-      console.log("auth2",authenticationUser)
+      const tokenUser: any = { token: req.headers.authorization };
 
       const userBusiness = new UserBusiness();
 
-      const recipes = await userBusiness.getFeedByFollower(authenticationUser);
-      console.log("recipes",recipes);
+      const result = await userBusiness.getFeedByFollower(tokenUser);
 
-      res.status(200).send({ message: recipes });
+      res.status(200).send({ message: result });
     } catch (error: any) {
       res
         .status(error.statusCode || 500)
@@ -156,38 +142,20 @@ export class UserController {
     }
   };
 
-  //   deleteById = async (req: Request, res: Response) => {
-  //     try {
-  //       const user_id = req.params.user_id;
-  //       const token = req.headers.authorization!;
+    deleteAccount = async (req: Request, res: Response) => {
+      try {
+        const user_id = req.params.user_id;
+        const token = req.headers.authorization!;
 
-  //       if (!user_id) {
-  //         throw new InvalidCredentials();
-  //       }
+        const authenticationUser: any = new Authenticator().verifyToken(token);
 
-  //       const authenticationUser: any = new Authenticator().verifyToken(token);
+        const newUserBusiness: any = new UserBusiness();
 
-  //       if (
-  //         authenticationUser.role === "normal" ||
-  //         authenticationUser === false
-  //       ) {
-  //         throw new PermissionDenied();
-  //       }
+        const userById = await newUserBusiness.getUserById(user_id);    
 
-  //       const newuserBusiness: any = new UserBusiness();
-  //       const userById = await newuserBusiness.getUserById(user_id);
-
-  //       if (!userById) {
-  //         throw new EmailNoExists();
-  //       }
-  //       const newRecipe: any = new RecipeDataBase();
-  //       const result = await newuserBusiness.delUserById();
-  //       const resultFollows = await newuserBusiness.deleteFollowUser();
-  //       const resultRecipe = await newRecipe.delRecipe();
-
-  //       res.status(200).send({ message: result, resultFollows, resultRecipe });
-  //     } catch (error: any) {
-  //       res.status(error.statusCode || 500).send({ message: error.message });
-  //     }
-  //   };
+        res.status(200).send({ message: "tst" });
+      } catch (error: any) {
+        res.status(error.statusCode || 500).send({ message: error.message });
+      }
+    };
 }

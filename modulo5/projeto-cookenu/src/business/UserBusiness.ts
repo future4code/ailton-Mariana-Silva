@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import { UserDataBase } from "../data/userDataBase";
 import { InvalidCredentials } from "../error/InvalidCredentials";
 import { EmailExists } from "../error/EmailExists";
@@ -88,7 +87,6 @@ export class UserBusiness {
   };
 
   getProfile = async (token: string) => {
-
     const authenticationUser: any = new Authenticator().verifyToken(token);
 
     const newUserData = new UserDataBase();
@@ -98,9 +96,7 @@ export class UserBusiness {
     return userById;
   };
 
-
-  getById = async (user_id: string, token: string):Promise<any> => {
-    
+  getById = async (user_id: string, token: string): Promise<any> => {
     if (!user_id) {
       throw new InvalidCredentials();
     }
@@ -115,114 +111,112 @@ export class UserBusiness {
 
     const userById = await newUserData.getUserById(user_id);
 
-    return userById;    
+    return userById;
   };
 
-  postFollow = async (followed_id: string, token: string) => {
-    
-      if (!followed_id) {
-        throw new MissingFields();
-      }
+  postFollow = async (follower_id: string, token: string) => {
+    if (!follower_id) {
+      throw new MissingFields();
+    }
 
-      const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = new Authenticator().verifyToken(token);
 
-      if (!authenticationUser) {
-        throw new PermissionDenied();
-      }
+    if (!authenticationUser) {
+      throw new PermissionDenied();
+    }
 
-      const newUserData = new UserDataBase();
+    const newUserData = new UserDataBase();
 
-      const userById = await newUserData.getUserById(followed_id);
+    const userById = await newUserData.getUserById(follower_id);
 
-      if (!userById) {
-        throw new InvalidCredentials();
-      }
+    if (!userById) {
+      throw new InvalidCredentials();
+    }
 
-      const userFollow = await newUserData.postFollowUser(
-        authenticationUser,
-        followed_id
-      );
+    const userFollow = await newUserData.postFollowUser(
+      authenticationUser,
+      follower_id
+    );
 
-      return userFollow
-
+    return userFollow;
   };
 
-  deleteFollow = async (followed_id: string, token: string) => {
-      if (!followed_id) {
-        throw new MissingFields();
-      }
+  deleteFollow = async (follower_id: string, token: string) => {
+    if (!follower_id) {
+      throw new MissingFields();
+    }
 
-      const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = new Authenticator().verifyToken(token);
 
-      if (!authenticationUser) {
-        throw new PermissionDenied();
-      }
+    if (!authenticationUser) {
+      throw new PermissionDenied();
+    }
 
-      const newUserData = new UserDataBase();
+    const newUserData = new UserDataBase();
 
-      const userById = await newUserData.getUserById(followed_id);
+    const userById = await newUserData.getUserById(follower_id);
 
-      if (!userById) {
-        throw new EmailNoExists();
-      }
+    if (!userById) {
+      throw new EmailNoExists();
+    }
 
-      const userUnfollow = await newUserData.deleteFollowUser(
-        authenticationUser,
-        followed_id
-      )
+    const userUnfollow = await newUserData.deleteFollowUser(
+      authenticationUser,
+      follower_id
+    );
 
-      return userUnfollow
-      }
+    return userUnfollow;
+  };
 
-  getFeedByFollower = async (user_id: string) => {
+  getFeedByFollower = async (tokenUser: any) => {
 
-      const newRecipeData = new UserDataBase();
-        
-      const feed = await newRecipeData.getRecipeByFollower(user_id);
+    const { token } = tokenUser;
 
-      console.log("feed", feed);
+    if (!token) {
+      throw new InvalidCredentials();
+    }
+    const id: any = new Authenticator().verifyToken(token)
 
-      if (!feed) {
-        throw new NotFollowing();
-      }
+    const newRecipeData = new UserDataBase();
 
-      return feed
+    const feed = await newRecipeData.getRecipeByFollower(id);
+
+    if (!feed) {
+      throw new NotFollowing();
+    }
+
+    return feed;
+  };
+
+    deleteAccount = async (user_id:string, token: string) => {
+
+        if (!user_id) {
+          throw new InvalidCredentials();
+        }
+
+        const authenticationUser: any = new Authenticator().verifyToken(token);
+
+        if (
+          authenticationUser.role === "normal" ||
+          authenticationUser === false
+        ) {
+          throw new PermissionDenied();
+        }
+
+        const newUserData: any = new UserDataBase();
+        const userById = await newUserData.getUserById(user_id);
+
+        if (!userById) {
+          throw new EmailNoExists();
+        }
+        const newRecipe: any = new RecipeDataBase();
+        const result = await newUserData.deleteUserById();
+        const resultFollows = await newUserData.deleteFollowUser();
+        const resultRecipe = await newRecipe.delRecipe();
+
+        return { result, resultFollows, resultRecipe }
 
     };
 
-//   deleteById = async (req: Request, res: Response) => {
-//     try {
-//       const user_id = req.params.user_id;
-//       const token = req.headers.authorization!;
+  }
 
-//       if (!user_id) {
-//         throw new InvalidCredentials();
-//       }
-
-//       const authenticationUser: any = new Authenticator().verifyToken(token);
-
-//       if (
-//         authenticationUser.role === "normal" ||
-//         authenticationUser === false
-//       ) {
-//         throw new PermissionDenied();
-//       }
-
-//       const newUserData: any = new UserDataBase();
-//       const userById = await newUserData.getUserById(user_id);
-
-//       if (!userById) {
-//         throw new EmailNoExists();
-//       }
-//       const newRecipe: any = new RecipeDataBase();
-//       const result = await newUserData.delUserById();
-//       const resultFollows = await newUserData.deleteFollowUser();
-//       const resultRecipe = await newRecipe.delRecipe();
-
-//       res.status(200).send({ message: result, resultFollows, resultRecipe });
-//     } catch (error: any) {
-//       res.status(error.statusCode || 500).send({ message: error.message });
-//     }
-//   };
-// }
-}

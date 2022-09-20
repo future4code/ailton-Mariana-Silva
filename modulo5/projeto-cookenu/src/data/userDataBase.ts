@@ -68,61 +68,17 @@ export class UserDataBase extends dataBase {
   };
 
   postFollowUser = async (
-    followed_id: string,
-    follower_id: string
+    follower_id: string,
+    followed_id: string
   ): Promise<string> => {
     const result = await this.getConnection()
       .insert({
-        followed_id: followed_id,
-        follower_id: follower_id,
+        followed_id: follower_id,
+        follower_id: followed_id,
       })
       .into("cookenu_followers");
 
     return `Followed successfully`;
-  };
-
-  getRecipeByFollower = async (user_id: string): Promise<any> => {
-    
-    const result = await this.getConnection()
-    .select("cookenu_recipes.*", "cookenu_users.user_name")
-    .from("cookenu_followers")
-    .innerJoin("cookenu_users", "cookenu_followers.followed_id", "cookenu_users.user_id")
-    .innerJoin("cookenu_recipes", "cookenu_followers.followed_id", "cookenu_recipes.recipe_id")
-    .where({ "cookenu_followers.follower_id": `${user_id}` })
-
-    // const result = await this.getConnection()
-      // .select(
-      //   "cookenu_recipes.recipe_id",
-      //   "cookenu_recipes.recipe_title",
-      //   "cookenu_recipes.recipe_description",
-      //   "cookenu_recipes.creation_date",
-      //   " cookenu_users.user_id",
-      //   "cookenu_users.user_name"
-      // )
-      // .join("cookenu_recipes", "cookenu_recipes.author_id", "cookenu_users.user_id")
-      //   .join("cookenu_followers", "cookenu_followers.followed_id", "cookenu_users.user_id")
-      //   .where("cookenu_recipes.author_id", `${followed_id}`)
-      //   .orderBy("creation_date", "DESC")
-
-    console.log("user_id", user_id);
-    console.log("result", result);
-    const typeFeed = result.map((feed: any) => {
-      const type: feedDB = {
-        recipe_id: feed.recipe_id,
-        recipe_title: feed.recipe_titulo,
-        recipe_description: feed.recipe_descricao,
-        creation_date: moment(feed.creation_date, "YYYY-MM-DD").format(
-          "DD/MM/YYYY"
-        ),
-        user_id: feed.user_id,
-        user_name: feed.user_name,
-      };
-
-      return type;
-    });
-
-    return typeFeed;
-    return result
   };
 
   deleteFollowUser = async (
@@ -140,8 +96,27 @@ export class UserDataBase extends dataBase {
     return `Unfollow successfully`;
   };
 
-  delUserById = async (user_id: string) => {
+  
+  getRecipeByFollower = async (user_id: string): Promise<any> => {
     const result = await this.getConnection()
+      .select(
+        "cookenu_recipes.recipe_id",
+        "cookenu_recipes.recipe_title",
+        "cookenu_recipes.recipe_description",
+        "cookenu_recipes.creation_date",
+        "cookenu_users.user_id",
+        "cookenu_users.user_name"
+      )
+      .from("cookenu_recipes")
+      .innerJoin("cookenu_users", "user_id", "author_id")
+      .innerJoin("cookenu_followers", "follower_id", "user_id")
+      .where({ followed_id: `${user_id}` });
+
+    return result;
+  };
+
+  deleteUserById = async (user_id: string) => {
+     await this.getConnection()
       .delete("*")
       .from("cookenu_users")
       .where({ user_id });
