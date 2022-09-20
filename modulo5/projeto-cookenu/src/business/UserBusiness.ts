@@ -174,18 +174,13 @@ export class UserBusiness {
       return userUnfollow
       }
 
-  getFeedByFollower = async (token: string) => {
-
-      const authenticationUser: any = new Authenticator().verifyToken(token);
-
-      if (!authenticationUser) {
-        throw new PermissionDenied();
-      }
+  getFeedByFollower = async (user_id: string) => {
 
       const newRecipeData = new UserDataBase();
+        
+      const feed = await newRecipeData.getRecipeByFollower(user_id);
 
-      const feed = await newRecipeData.getRecipeByFollower(token);
-      console.log(feed);
+      console.log("feed", feed);
 
       if (!feed) {
         throw new NotFollowing();

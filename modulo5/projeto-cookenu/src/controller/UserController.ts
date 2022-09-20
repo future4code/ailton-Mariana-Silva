@@ -137,16 +137,16 @@ export class UserController {
     try {
       const token = req.headers.authorization!;
 
+      console.log("token",token)
+      
       const authenticationUser: any = new Authenticator().verifyToken(token);
-
-      if (!authenticationUser) {
-        throw new PermissionDenied();
-      }
+      
+      console.log("auth2",authenticationUser)
 
       const userBusiness = new UserBusiness();
 
       const recipes = await userBusiness.getFeedByFollower(authenticationUser);
-      console.log(recipes);
+      console.log("recipes",recipes);
 
       res.status(200).send({ message: recipes });
     } catch (error: any) {
