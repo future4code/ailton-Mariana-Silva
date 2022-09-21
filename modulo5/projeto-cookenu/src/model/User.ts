@@ -40,11 +40,13 @@ export interface LoginDTO {
   user_email: string;
   user_password: string;
 }
-export interface FeedDTO {
-  recipe_id: string;
-  recipe_title: string;
-  recipe_description: string;
-  creation_date: string;
-  user_id: string;
-  user_name: string;
+
+export interface GetProfileByIdDTO {
+  user_id: string
+  token: string
+}
+
+export interface FollowDTO {
+  follower_id: string
+  token: string
 }

@@ -58,4 +58,13 @@ export class RecipeDataBase extends dataBase {
 
     return `Recipe deleted successfully`;
   };
+
+  deleteRecipeByAuthor = async (author_id: string): Promise<string> => {
+    const result = await this.getConnection()
+      .delete("*")
+      .from("cookenu_recipes")
+      .where({ author_id });
+
+    return `Recipe deleted successfully`;
+  };
 }

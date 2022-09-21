@@ -26,7 +26,7 @@ export class UserDataBase extends dataBase {
     if (!result.length) {
       return undefined;
     } else {
-      const user = new User(
+      const user: User = new User(
         result[0].user_id,
         result[0].user_name,
         result[0].user_email,
@@ -78,7 +78,7 @@ export class UserDataBase extends dataBase {
       })
       .into("cookenu_followers");
 
-    return `Followed successfully`;
+    return `User Followed successfully`;
   };
 
   deleteFollowUser = async (
@@ -96,7 +96,6 @@ export class UserDataBase extends dataBase {
     return `Unfollow successfully`;
   };
 
-  
   getFeedByFollower = async (user_id: string): Promise<any> => {
     const result = await this.getConnection()
       .select(
@@ -116,7 +115,7 @@ export class UserDataBase extends dataBase {
   };
 
   deleteUserById = async (user_id: string) => {
-     await this.getConnection()
+    await this.getConnection()
       .delete("*")
       .from("cookenu_users")
       .where({ user_id });

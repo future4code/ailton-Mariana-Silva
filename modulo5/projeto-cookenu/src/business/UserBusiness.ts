@@ -6,13 +6,26 @@ import { IncorrectPassword } from "../error/IncorrectPassword";
 import { PermissionDenied } from "../error/PermissionDenied";
 import { GenerateId } from "../services/IdGenarator";
 import { Authenticator } from "../services/Authenticator";
-import { LoginDTO, User, userDTO } from "../model/User";
+import {
+  FollowDTO,
+  GetProfileByIdDTO,
+  LoginDTO,
+  User,
+  userDTO,
+} from "../model/User";
 import { EmailNoExists } from "../error/EmailNoExists";
 import { MissingFields } from "../error/MissingFields";
 import { RecipeDataBase } from "../data/recipeDataBase";
 import { NotFollowing } from "../error/NotFollowing";
 
 export class UserBusiness {
+  constructor(
+    private userDataBase: UserDataBase,
+    private recipeDataBase: RecipeDataBase,
+    private generateId: GenerateId,
+    private hashManager: HashManager,
+    private authenticator: Authenticator
+  ) {}
   signup = async (user: userDTO) => {
     const { user_name, user_email, user_password, role } = user;
 
@@ -26,16 +39,16 @@ export class UserBusiness {
       throw new InvalidCredentials();
     }
 
-    const userDataBase = new UserDataBase();
-
-    const emailAlreadyExist = await userDataBase.getUserByEmail(user_email);
+    const emailAlreadyExist = await this.userDataBase.getUserByEmail(
+      user_email
+    );
     if (emailAlreadyExist) {
       throw new EmailExists();
     }
 
-    const user_id: any = new GenerateId().createId();
+    const user_id: any = this.generateId.createId();
 
-    const hashPassword: string = await new HashManager().generateHash(
+    const hashPassword: string = await this.hashManager.generateHash(
       user_password
     );
 
@@ -47,11 +60,9 @@ export class UserBusiness {
       role
     );
 
-    const result = await userDataBase.createUser(newUser);
+    const result = await this.userDataBase.createUser(newUser);
 
-    const token = new Authenticator().generateToken(user_id);
-
-    return token;
+    return this.authenticator.generateToken(user_id);
   };
 
   login = async (user: LoginDTO) => {
@@ -66,9 +77,7 @@ export class UserBusiness {
       throw new InvalidCredentials();
     }
 
-    const userData = new UserDataBase();
-
-    const emailExist: any = await userData.getUserByEmail(user_email);
+    const emailExist: any = await this.userDataBase.getUserByEmail(user_email);
 
     let correctPassword: boolean = false;
     if (!emailExist) {
@@ -77,92 +86,89 @@ export class UserBusiness {
 
     const hash = emailExist.getPassword();
 
-    correctPassword = await new HashManager().compareHash(user_password, hash);
+    correctPassword = await this.hashManager.compareHash(user_password, hash);
 
     if (!correctPassword) {
       throw new IncorrectPassword();
     }
 
-    const token = new Authenticator().generateToken(emailExist.getId());
-
-    return token;
+    return this.authenticator.generateToken(emailExist.getId());
   };
 
   getProfile = async (token: string) => {
-    const authenticationUser: any = new Authenticator().verifyToken(token);
 
-    const newUserData = new UserDataBase();
+    const authenticationUser: any = this.authenticator.verifyToken(token);
 
-    const userById = await newUserData.getUserById(token);
-
-    return userById;
+    if (!authenticationUser) {
+      throw new PermissionDenied();
+    }
+    
+    return await this.userDataBase.getUserById(authenticationUser);
   };
 
-  getById = async (user_id: string, token: string): Promise<any> => {
+  getProfileById = async (user: GetProfileByIdDTO): Promise<any> => {
+    const { user_id, token } = user;
+
     if (!user_id) {
       throw new InvalidCredentials();
     }
 
-    const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = this.authenticator.verifyToken(token);
 
     if (!authenticationUser) {
       throw new PermissionDenied();
     }
 
-    const newUserData = new UserDataBase();
+    return await this.userDataBase.getUserById(user_id);
 
-    const userById = await newUserData.getUserById(user_id);
-
-    return userById;
   };
 
-  postFollow = async (follower_id: string, token: string) => {
+  postFollow = async (user: FollowDTO) => {
+    const { follower_id, token } = user;
+
     if (!follower_id) {
       throw new MissingFields();
     }
 
-    const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = this.authenticator.verifyToken(token);
 
     if (!authenticationUser) {
       throw new PermissionDenied();
     }
 
-    const newUserData = new UserDataBase();
-
-    const userById = await newUserData.getUserById(follower_id);
+    const userById = await this.userDataBase.getUserById(follower_id);
 
     if (!userById) {
       throw new InvalidCredentials();
     }
 
-    const userFollow = await newUserData.postFollowUser(
+    return await this.userDataBase.postFollowUser(
       authenticationUser,
       follower_id
     );
 
-    return userFollow;
   };
 
-  deleteFollow = async (follower_id: string, token: string) => {
+  deleteFollow = async (user: FollowDTO) => {
+    const { follower_id, token } = user;
+
     if (!follower_id) {
       throw new MissingFields();
     }
 
-    const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = this.authenticator.verifyToken(token);
 
     if (!authenticationUser) {
       throw new PermissionDenied();
     }
 
-    const newUserData = new UserDataBase();
-
-    const userById = await newUserData.getUserById(follower_id);
+    const userById = await this.userDataBase.getUserById(follower_id);
 
     if (!userById) {
       throw new EmailNoExists();
     }
 
-    const userUnfollow = await newUserData.deleteFollowUser(
+    const userUnfollow = await this.userDataBase.deleteFollowUser(
       authenticationUser,
       follower_id
     );
@@ -170,17 +176,14 @@ export class UserBusiness {
     return userUnfollow;
   };
 
-  getFeed = async (tokenUser: any) => {
-    const { token } = tokenUser;
-
-    if (!token) {
-      throw new InvalidCredentials();
+  getFeed = async (token: string) => {
+    
+    const authenticationUser: any = this.authenticator.verifyToken(token);
+    
+    if (!authenticationUser) {
+      throw new PermissionDenied();
     }
-    const id: any = new Authenticator().verifyToken(token);
-
-    const newRecipeData = new UserDataBase();
-
-    const feed = await newRecipeData.getFeedByFollower(id);
+    const feed = await this.userDataBase.getFeedByFollower(authenticationUser);
 
     if (!feed) {
       throw new NotFollowing();
@@ -189,28 +192,27 @@ export class UserBusiness {
     return feed;
   };
 
-  deleteAccount = async (user_id: string, token: string) => {
+  deleteAccount = async (user: GetProfileByIdDTO) => {
+    const { user_id, token } = user;
+
     if (!user_id) {
       throw new InvalidCredentials();
     }
 
-    const authenticationUser: any = new Authenticator().verifyToken(token);
-
-    if (authenticationUser.role === "normal" || authenticationUser === false) {
+    const authenticationUser: any = this.authenticator.verifyToken(token);
+    if (authenticationUser.role === "NORMAL" || authenticationUser === false) {
       throw new PermissionDenied();
     }
-
-    const newUserData: any = new UserDataBase();
-    const userById = await newUserData.getUserById(user_id);
+    const userById = await this.userDataBase.getUserById(user_id);
 
     if (!userById) {
       throw new EmailNoExists();
     }
-    const newRecipe: any = new RecipeDataBase();
-    const result = await newUserData.deleteUserById();
-    const resultFollows = await newUserData.deleteFollowUser();
-    const resultRecipe = await newRecipe.delRecipe();
 
-    return { result, resultFollows, resultRecipe };
+    await this.userDataBase.deleteFollowUser(user_id, user_id);
+    await this.recipeDataBase.deleteRecipeByAuthor(user_id);
+    await this.userDataBase.deleteUserById(user_id);
+
+    return "Account deleted successfully";
   };
 }

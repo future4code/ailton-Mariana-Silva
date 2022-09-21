@@ -1,32 +1,34 @@
-import { Request, Response } from "express";
 import { RecipeDataBase } from "../data/recipeDataBase";
 import { MissingFields } from "../error/MissingFields";
 import { PermissionDenied } from "../error/PermissionDenied";
+import { Authenticator } from "../services/Authenticator";
+import { GenerateId } from "../services/IdGenarator";
+import moment from "moment";
 import {
   CreateRecipeDTO,
   EditRecipeDTO,
   Recipe,
   RecipeDTO,
 } from "../model/Recipe";
-import { Authenticator } from "../services/Authenticator";
-import { GenerateId } from "../services/IdGenarator";
-import moment from "moment";
 
 export class RecipeBusiness {
+  constructor(
+    private recipeDataBase: RecipeDataBase,
+    private generateId: GenerateId,
+    private authenticator: Authenticator
+  ) {}
   createRecipe = async (recipe: CreateRecipeDTO) => {
     const { recipe_title, recipe_description, token } = recipe;
 
     if (!recipe_title || !recipe_description) {
       throw new MissingFields();
     }
-    const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = this.authenticator.verifyToken(token);
     if (!authenticationUser) {
       throw new PermissionDenied();
     }
 
-    const recipeDataBase = new RecipeDataBase();
-
-    const recipe_id = new GenerateId().createId();
+    const recipe_id = this.generateId.createId();
 
     const momentDate = new Date();
 
@@ -39,7 +41,7 @@ export class RecipeBusiness {
       authenticationUser,
       creation_date
     );
-    return await recipeDataBase.insertRecipe(newRecipe);
+    return await this.recipeDataBase.insertRecipe(newRecipe);
   };
 
   getRecipeById = async (recipe: RecipeDTO) => {
@@ -49,14 +51,12 @@ export class RecipeBusiness {
       throw new MissingFields();
     }
 
-    const authenticationUser = new Authenticator().verifyToken(token);
+    const authenticationUser = this.authenticator.verifyToken(token);
     if (authenticationUser === false) {
       throw new PermissionDenied();
     }
 
-    const newRecipeDataBase = new RecipeDataBase();
-
-    return await newRecipeDataBase.getRecipeById(recipe_id);
+    return await this.recipeDataBase.getRecipeById(recipe_id);
   };
 
   putEditRecipe = async (recipe: EditRecipeDTO) => {
@@ -66,20 +66,18 @@ export class RecipeBusiness {
       throw new MissingFields();
     }
 
-    const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = this.authenticator.verifyToken(token);
 
     if (authenticationUser === false) {
       throw new PermissionDenied();
     }
 
-    const newRecipeData = new RecipeDataBase();
-
-    const recipeById = await newRecipeData.getRecipeById(recipe_id);
+    const recipeById = await this.recipeDataBase.getRecipeById(recipe_id);
 
     let result: string = "";
 
     if (recipeById?.getAuthorId() === authenticationUser) {
-      result = await newRecipeData.editRecipe(
+      result = await this.recipeDataBase.editRecipe(
         recipe_id,
         recipe_description,
         authenticationUser
@@ -97,21 +95,19 @@ export class RecipeBusiness {
       throw new MissingFields();
     }
 
-    const authenticationUser: any = new Authenticator().verifyToken(token);
+    const authenticationUser: any = this.authenticator.verifyToken(token);
 
     if (authenticationUser === false) {
       throw new PermissionDenied();
     }
 
-    const newRecipeData = new RecipeDataBase();
-
-    const recipeById = await newRecipeData.getRecipeById(recipe_id);
+    const recipeById = await this.recipeDataBase.getRecipeById(recipe_id);
     let result: string = "";
     if (
       recipeById?.getAuthorId() === authenticationUser ||
       authenticationUser.role === "ADMIN"
     ) {
-      result = await newRecipeData.deleteRecipeById(recipe_id);
+      result = await this.recipeDataBase.deleteRecipeById(recipe_id);
     } else {
       throw new PermissionDenied();
     }

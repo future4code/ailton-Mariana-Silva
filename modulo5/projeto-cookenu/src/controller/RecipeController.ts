@@ -1,26 +1,26 @@
 import { Request, Response } from "express";
+import { RecipeBusiness } from "../business/RecipeBusiness";
 import {
   CreateRecipeDTO,
   EditRecipeDTO,
   Recipe,
   RecipeDTO,
 } from "../model/Recipe";
-import { RecipeBusiness } from "../business/RecipeBusiness";
 
 export class RecipeController {
+  constructor(private recipeBusiness: RecipeBusiness) {}
+
   createRecipe = async (req: Request, res: Response) => {
     try {
       const token = req.headers.authorization!;
       const { recipe_title, recipe_description } = req.body;
-
-      const recipeBusiness = new RecipeBusiness();
 
       const recipe: CreateRecipeDTO = {
         recipe_title,
         recipe_description,
         token,
       };
-      const result = await recipeBusiness.createRecipe(recipe);
+      const result = await this.recipeBusiness.createRecipe(recipe);
 
       res.status(201).send({ message: result });
     } catch (error: any) {
@@ -33,14 +33,12 @@ export class RecipeController {
       const token = req.headers.authorization!;
       const { recipe_id } = req.params;
 
-      const recipeBusiness = new RecipeBusiness();
-
       const recipe: RecipeDTO = {
         recipe_id,
         token,
       };
 
-      const result = await recipeBusiness.getRecipeById(recipe);
+      const result = await this.recipeBusiness.getRecipeById(recipe);
 
       res.status(201).send({ message: result });
     } catch (error: any) {
@@ -50,10 +48,8 @@ export class RecipeController {
 
   putEditRecipe = async (req: Request, res: Response): Promise<void> => {
     try {
-      const token  = req.headers.authorization!;
+      const token = req.headers.authorization!;
       const { recipe_id, recipe_title, recipe_description } = req.body;
-
-      const recipeBusiness = new RecipeBusiness();
 
       const recipe: EditRecipeDTO = {
         recipe_title,
@@ -62,7 +58,7 @@ export class RecipeController {
         token,
       };
 
-      const result = await recipeBusiness.putEditRecipe(recipe);
+      const result = await this.recipeBusiness.putEditRecipe(recipe);
 
       res.status(201).send({ message: result });
     } catch (error: any) {
@@ -72,19 +68,18 @@ export class RecipeController {
 
   deleteRecipe = async (req: Request, res: Response): Promise<void> => {
     try {
-      const token  = req.headers.authorization!;
+      const token = req.headers.authorization!;
       const { recipe_id } = req.body;
-
-      const recipeBusiness = new RecipeBusiness();
 
       const recipe: RecipeDTO = {
         recipe_id,
         token,
       };
-      const result = await recipeBusiness.deleteRecipe(recipe);
+      const result = await this.recipeBusiness.deleteRecipe(recipe);
 
       res.status(201).send({ message: result });
     } catch (error: any) {
       res.status(400).send(error.message);
     }
-  };}
+  };
+}

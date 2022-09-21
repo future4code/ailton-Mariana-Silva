@@ -1,17 +1,13 @@
 import { Request, Response } from "express";
-import { InvalidCredentials } from "../error/InvalidCredentials";
-import { HashManager } from "../services/HashManager";
-import { GenerateId } from "../services/IdGenarator";
-import { Authenticator } from "../services/Authenticator";
-import { FeedDTO, LoginDTO, User, userDTO } from "../model/User";
+import { FollowDTO, GetProfileByIdDTO, LoginDTO, userDTO } from "../model/User";
 import { UserBusiness } from "../business/UserBusiness";
 
 export class UserController {
+  constructor(private userBusiness: UserBusiness) {}
+
   signup = async (req: Request, res: Response) => {
     try {
       const { user_name, user_email, user_password, role } = req.body;
-
-      const userBusiness = new UserBusiness();
 
       const user: userDTO = {
         user_name,
@@ -19,7 +15,7 @@ export class UserController {
         user_password,
         role,
       };
-      const result = await userBusiness.signup(user);
+      const result = await this.userBusiness.signup(user);
 
       res.status(201).send({ message: result });
     } catch (error: any) {
@@ -32,13 +28,11 @@ export class UserController {
       const { user_email, user_password } = req.body;
 
       const user: LoginDTO = {
-        user_email, 
-        user_password
-      }
+        user_email,
+        user_password,
+      };
 
-      const userBusiness = new UserBusiness();
-
-      const result = await userBusiness.login(user);
+      const result = await this.userBusiness.login(user);
 
       res.status(200).send({ result });
     } catch (error: any) {
@@ -48,15 +42,11 @@ export class UserController {
 
   getProfile = async (req: Request, res: Response) => {
     try {
-      const token = req.headers.authorization as string;
+      const token = req.headers.authorization!;
 
-      const authenticationUser: any = new Authenticator().verifyToken(token);
-
-      const userBusiness = new UserBusiness();
-
-      const userProfile = await userBusiness.getProfile(token);
-
-      res.status(200).send({ User: userProfile });
+      const userProfile = await this.userBusiness.getProfile(token);
+console.log("userProfile",userProfile)
+      res.status(200).send({ message: userProfile });
     } catch (error: any) {
       res
         .status(error.statusCode || 500)
@@ -64,16 +54,17 @@ export class UserController {
     }
   };
 
-  getById = async (req: Request, res: Response) => {
+  getProfileById = async (req: Request, res: Response) => {
     try {
       const user_id = req.params.user_id;
       const token = req.headers.authorization!;
 
-      const authenticationUser = new Authenticator().verifyToken(token);
+      const user: GetProfileByIdDTO = {
+        user_id,
+        token,
+      };
 
-      const userBusiness = new UserBusiness();
-
-      const userById = await userBusiness.getById(user_id, token);
+      const userById = await this.userBusiness.getProfileById(user);
 
       res.status(200).send({
         message: {
@@ -94,14 +85,15 @@ export class UserController {
       const { follower_id } = req.body;
       const token = req.headers.authorization!;
 
-      const authenticationUser: any = new Authenticator().verifyToken(token);
+      const user: FollowDTO = {
+        follower_id,
+        token,
+      };
 
-      const userBusiness = new UserBusiness();
+      const searchFeed = await this.userBusiness.postFollow(user);
 
-      const searchFeed = await userBusiness.postFollow(follower_id, token);
-  
       res.status(200).send({
-        message: { searchFeed },
+        message: searchFeed ,
       });
     } catch (error: any) {
       res
@@ -115,11 +107,12 @@ export class UserController {
       const { follower_id } = req.body;
       const token = req.headers.authorization!;
 
-      const authenticationUser: any = new Authenticator().verifyToken(token);
+      const user: FollowDTO = {
+        follower_id,
+        token,
+      };
 
-      const newuserBusiness = new UserBusiness();
-
-      const userById = await newuserBusiness.deleteFollow(follower_id, token);
+      const userById = await this.userBusiness.deleteFollow(user);
 
       res.status(200).send({
         message: { userById },
@@ -133,11 +126,9 @@ export class UserController {
 
   getFeed = async (req: Request, res: Response) => {
     try {
-      const tokenUser: any = { token: req.headers.authorization };
+      const token = req.headers.authorization!;
 
-      const userBusiness = new UserBusiness();
-
-      const result = await userBusiness.getFeed(tokenUser);
+      const result = await this.userBusiness.getFeed(token);
 
       res.status(200).send({ message: result });
     } catch (error: any) {
@@ -147,20 +138,21 @@ export class UserController {
     }
   };
 
-    deleteAccount = async (req: Request, res: Response) => {
-      try {
-        const user_id = req.params.user_id;
-        const token = req.headers.authorization!;
+  deleteAccount = async (req: Request, res: Response) => {
+    try {
+      const user_id = req.params.user_id;
+      const token = req.headers.authorization!;
 
-        const authenticationUser: any = new Authenticator().verifyToken(token);
+      const user: GetProfileByIdDTO = {
+        user_id,
+        token,
+      };
 
-        const newUserBusiness: any = new UserBusiness();
+      const result = await this.userBusiness.deleteAccount(user);
 
-        const userById = await newUserBusiness.getUserById(user_id);    
-
-        res.status(200).send({ message: "tst" });
-      } catch (error: any) {
-        res.status(error.statusCode || 500).send({ message: error.message });
-      }
-    };
+      res.status(200).send({ message: result });
+    } catch (error: any) {
+      res.status(error.statusCode || 500).send({ message: error.message });
+    }
+  };
 }
