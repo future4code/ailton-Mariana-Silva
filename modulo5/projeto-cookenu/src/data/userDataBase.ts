@@ -1,5 +1,5 @@
 import moment from "moment";
-import { feedDB, User } from "../model/User";
+import { User } from "../model/User";
 import { dataBase } from "./dataBase";
 
 export class UserDataBase extends dataBase {
@@ -97,7 +97,7 @@ export class UserDataBase extends dataBase {
   };
 
   
-  getRecipeByFollower = async (user_id: string): Promise<any> => {
+  getFeedByFollower = async (user_id: string): Promise<any> => {
     const result = await this.getConnection()
       .select(
         "cookenu_recipes.recipe_id",

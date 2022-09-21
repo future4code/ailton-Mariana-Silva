@@ -3,7 +3,7 @@ import { InvalidCredentials } from "../error/InvalidCredentials";
 import { HashManager } from "../services/HashManager";
 import { GenerateId } from "../services/IdGenarator";
 import { Authenticator } from "../services/Authenticator";
-import { feedDB, User, userDTO } from "../model/User";
+import { FeedDTO, LoginDTO, User, userDTO } from "../model/User";
 import { UserBusiness } from "../business/UserBusiness";
 
 export class UserController {
@@ -31,11 +31,16 @@ export class UserController {
     try {
       const { user_email, user_password } = req.body;
 
+      const user: LoginDTO = {
+        user_email, 
+        user_password
+      }
+
       const userBusiness = new UserBusiness();
 
-      const token = await userBusiness.login(user_email, user_password);
+      const result = await userBusiness.login(user);
 
-      res.status(200).send({ token });
+      res.status(200).send({ result });
     } catch (error: any) {
       res.status(error.statusCode || 500).send({ message: error.message });
     }
@@ -126,13 +131,13 @@ export class UserController {
     }
   };
 
-  getFeedByFollower = async (req: Request, res: Response) => {
+  getFeed = async (req: Request, res: Response) => {
     try {
       const tokenUser: any = { token: req.headers.authorization };
 
       const userBusiness = new UserBusiness();
 
-      const result = await userBusiness.getFeedByFollower(tokenUser);
+      const result = await userBusiness.getFeed(tokenUser);
 
       res.status(200).send({ message: result });
     } catch (error: any) {

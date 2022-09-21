@@ -6,15 +6,15 @@ import { IncorrectPassword } from "../error/IncorrectPassword";
 import { PermissionDenied } from "../error/PermissionDenied";
 import { GenerateId } from "../services/IdGenarator";
 import { Authenticator } from "../services/Authenticator";
-import { User, UserBD, userDTO } from "../model/User";
+import { LoginDTO, User, userDTO } from "../model/User";
 import { EmailNoExists } from "../error/EmailNoExists";
 import { MissingFields } from "../error/MissingFields";
 import { RecipeDataBase } from "../data/recipeDataBase";
 import { NotFollowing } from "../error/NotFollowing";
 
 export class UserBusiness {
-  signup = async (userDTO: userDTO) => {
-    const { user_name, user_email, user_password, role } = userDTO;
+  signup = async (user: userDTO) => {
+    const { user_name, user_email, user_password, role } = user;
 
     if (
       !user_name ||
@@ -54,7 +54,9 @@ export class UserBusiness {
     return token;
   };
 
-  login = async (user_email: string, user_password: string) => {
+  login = async (user: LoginDTO) => {
+    const { user_email, user_password } = user;
+
     if (
       !user_email ||
       !user_password ||
@@ -168,18 +170,17 @@ export class UserBusiness {
     return userUnfollow;
   };
 
-  getFeedByFollower = async (tokenUser: any) => {
-
+  getFeed = async (tokenUser: any) => {
     const { token } = tokenUser;
 
     if (!token) {
       throw new InvalidCredentials();
     }
-    const id: any = new Authenticator().verifyToken(token)
+    const id: any = new Authenticator().verifyToken(token);
 
     const newRecipeData = new UserDataBase();
 
-    const feed = await newRecipeData.getRecipeByFollower(id);
+    const feed = await newRecipeData.getFeedByFollower(id);
 
     if (!feed) {
       throw new NotFollowing();
@@ -188,35 +189,28 @@ export class UserBusiness {
     return feed;
   };
 
-    deleteAccount = async (user_id:string, token: string) => {
+  deleteAccount = async (user_id: string, token: string) => {
+    if (!user_id) {
+      throw new InvalidCredentials();
+    }
 
-        if (!user_id) {
-          throw new InvalidCredentials();
-        }
+    const authenticationUser: any = new Authenticator().verifyToken(token);
 
-        const authenticationUser: any = new Authenticator().verifyToken(token);
+    if (authenticationUser.role === "normal" || authenticationUser === false) {
+      throw new PermissionDenied();
+    }
 
-        if (
-          authenticationUser.role === "normal" ||
-          authenticationUser === false
-        ) {
-          throw new PermissionDenied();
-        }
+    const newUserData: any = new UserDataBase();
+    const userById = await newUserData.getUserById(user_id);
 
-        const newUserData: any = new UserDataBase();
-        const userById = await newUserData.getUserById(user_id);
+    if (!userById) {
+      throw new EmailNoExists();
+    }
+    const newRecipe: any = new RecipeDataBase();
+    const result = await newUserData.deleteUserById();
+    const resultFollows = await newUserData.deleteFollowUser();
+    const resultRecipe = await newRecipe.delRecipe();
 
-        if (!userById) {
-          throw new EmailNoExists();
-        }
-        const newRecipe: any = new RecipeDataBase();
-        const result = await newUserData.deleteUserById();
-        const resultFollows = await newUserData.deleteFollowUser();
-        const resultRecipe = await newRecipe.delRecipe();
-
-        return { result, resultFollows, resultRecipe }
-
-    };
-
-  }
-
+    return { result, resultFollows, resultRecipe };
+  };
+}

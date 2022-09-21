@@ -30,24 +30,21 @@ export class User {
   }
 }
 
-export interface UserBD {
-  user_id: string,
-  user_name: string,
-  user_email: string
-}
-
-export interface feedDB {
-  recipe_id:string,
-  recipe_title: string,
-  recipe_description:string,
-  creation_date:string,
-  user_id: string,
-  user_name: string
-}
-
 export interface userDTO {
-  user_name:string,
-  user_email:string,
-  user_password:string,
-  role:typeUser
+  user_name: string;
+  user_email: string;
+  user_password: string;
+  role: typeUser;
+}
+export interface LoginDTO {
+  user_email: string;
+  user_password: string;
+}
+export interface FeedDTO {
+  recipe_id: string;
+  recipe_title: string;
+  recipe_description: string;
+  creation_date: string;
+  user_id: string;
+  user_name: string;
 }

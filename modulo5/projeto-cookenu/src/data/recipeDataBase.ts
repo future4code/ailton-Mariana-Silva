@@ -2,7 +2,7 @@ import { Recipe } from "../model/Recipe";
 import { dataBase } from "./dataBase";
 
 export class RecipeDataBase extends dataBase {
-  createRecipe = async (recipe: Recipe): Promise<string> => {
+  insertRecipe = async (recipe: Recipe): Promise<string> => {
     await this.getConnection()
       .insert({
         recipe_id: recipe.getId(),
@@ -50,7 +50,7 @@ export class RecipeDataBase extends dataBase {
     return `Recipe updated successfully`;
   };
 
-  delRecipe = async (recipe_id: string): Promise<string> => {
+  deleteRecipeById = async (recipe_id: string): Promise<string> => {
     const result = await this.getConnection()
       .delete("*")
       .from("cookenu_recipes")
