@@ -1,0 +1,44 @@
+### 1) Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "Maria Luiza",
+    "email": "malu@gmail.com",
+    "password": "maluzera"
+}
+
+### 2) Login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "malu@gmail.com",
+    "password": "maluzera"
+}
+
+### 3) Post
+POST http://localhost:3003/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMWQyYmQ5LTA4MGQtNDNiZC1iODRmLTlmNDZjODAwNDc1NCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjM4OTIwMTMsImV4cCI6MTY2Mzk3ODQxM30.9SUZdO5hcB3L48RvbVBdB2POOxshaCEZ1LSyQbKlIFg
+Content-Type: application/json
+
+{
+    "content": "To delete 2.0!"
+}
+
+### 4) Get posts
+GET http://localhost:3003/posts
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMWQyYmQ5LTA4MGQtNDNiZC1iODRmLTlmNDZjODAwNDc1NCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjM4OTIwMTMsImV4cCI6MTY2Mzk3ODQxM30.9SUZdO5hcB3L48RvbVBdB2POOxshaCEZ1LSyQbKlIFg
+
+### 5) Delete post
+DELETE http://localhost:3003/posts/a8c9da77-3582-4deb-9f0f-b95dec0cd31f
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMWQyYmQ5LTA4MGQtNDNiZC1iODRmLTlmNDZjODAwNDc1NCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjM4OTIwMTMsImV4cCI6MTY2Mzk3ODQxM30.9SUZdO5hcB3L48RvbVBdB2POOxshaCEZ1LSyQbKlIFg
+
+### 6) Like post
+POST http://localhost:3003/posts/like/203
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMWQyYmQ5LTA4MGQtNDNiZC1iODRmLTlmNDZjODAwNDc1NCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjM4OTIwMTMsImV4cCI6MTY2Mzk3ODQxM30.9SUZdO5hcB3L48RvbVBdB2POOxshaCEZ1LSyQbKlIFg
+
+### 7) Remove Like from post
+DELETE http://localhost:3003/posts/like/203
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyMWQyYmQ5LTA4MGQtNDNiZC1iODRmLTlmNDZjODAwNDc1NCIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjM4OTIwMTMsImV4cCI6MTY2Mzk3ODQxM30.9SUZdO5hcB3L48RvbVBdB2POOxshaCEZ1LSyQbKlIFg
+
