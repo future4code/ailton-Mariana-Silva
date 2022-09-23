@@ -1,4 +1,4 @@
-import { app } from "../src/controller/app";
+import { app } from "./app";
 import { userRouter } from "./router/userRouter";
 import { postRouter } from "./router/postRouter";
 

@@ -51,9 +51,22 @@ export class PostBusiness {
       throw new AuthorizationError();
     }
 
-    return await this.postDataBase.getPosts();
+    const getAllPost = await this.postDataBase.getPosts();
 
-  };
+    const posts = getAllPost.map((posts) => {
+      return new Post(
+          posts.id,
+          posts.content,
+          posts.user_id
+      )
+  })
+  for (let post of posts) {
+      const postId = post.getId()
+      const likes = await this.postDataBase.getLikesPost(postId)
+      post.setLikes(likes)
+  }
+  return posts
+}
 
   public deletePost = async (post: IDeletePostDTO) => {
     const { token, postId } = post;

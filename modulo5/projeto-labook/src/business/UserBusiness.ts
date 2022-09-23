@@ -46,14 +46,15 @@ export class UserBusiness {
       USER_ROLES.NORMAL
     );
 
-    await this.userDataBase.createUser(newUser);
-
+    
     const payload: ITokenPayload = {
       id: newUser.getId(),
       role: newUser.getRole(),
     };
+    
+    this.authenticator.generateToken(payload);
 
-    return this.authenticator.generateToken(payload);
+    return this.userDataBase.createUser(newUser);
   };
 
   public login = async (user: ILoginDTO) => {
