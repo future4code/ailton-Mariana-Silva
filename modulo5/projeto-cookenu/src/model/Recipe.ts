@@ -26,3 +26,27 @@ export class Recipe {
     return this.creation_date;
   }
 }
+
+export interface CreateRecipeDTO {
+  recipe_title: string;
+  recipe_description: string;
+  token: string;
+}
+
+export interface RecipeDTO {
+  token: string;
+  recipe_id: string;
+}
+
+export interface EditRecipeDTO {
+  recipe_title: string;
+  recipe_description: string;
+  token: string;
+  recipe_id: string;
+}
+
+export interface EditRecipe {
+  recipe_id: string;
+  recipe_title: string;
+  recipe_description: string;
+}

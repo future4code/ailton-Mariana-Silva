@@ -2,7 +2,7 @@ import { Recipe } from "../model/Recipe";
 import { dataBase } from "./dataBase";
 
 export class RecipeDataBase extends dataBase {
-  createRecipe = async (recipe: Recipe): Promise<string> => {
+  insertRecipe = async (recipe: Recipe): Promise<string> => {
     await this.getConnection()
       .insert({
         recipe_id: recipe.getId(),
@@ -35,25 +35,6 @@ export class RecipeDataBase extends dataBase {
       return recipe;
     }
   };
-  getRecipeByFollower = async (user_id: string): Promise<any> => {
-    const result = await this.getConnection()
-      .select(
-        "recipe_id",
-        "recipe_title",
-        "recipe_description",
-        "author_id",
-        "creation_date",
-        "user_name"
-      )
-      .from("cookenu_recipes")
-      .join("cookenu_users", "user_id", "user_name")
-      .join("cookenu_followers", "followed_id", "user_id")
-      .where({ follower_id: `${user_id}` })
-      .orderBy("creation_date");
-    console.log(result);
-
-    return result;
-  };
 
   editRecipe = async (
     recipe_id: string,
@@ -69,11 +50,20 @@ export class RecipeDataBase extends dataBase {
     return `Recipe updated successfully`;
   };
 
-  delRecipe = async (recipe_id: string): Promise<string> => {
+  deleteRecipeById = async (recipe_id: string): Promise<string> => {
     const result = await this.getConnection()
       .delete("*")
       .from("cookenu_recipes")
       .where({ recipe_id });
+
+    return `Recipe deleted successfully`;
+  };
+
+  deleteRecipeByAuthor = async (author_id: string): Promise<string> => {
+    const result = await this.getConnection()
+      .delete("*")
+      .from("cookenu_recipes")
+      .where({ author_id });
 
     return `Recipe deleted successfully`;
   };

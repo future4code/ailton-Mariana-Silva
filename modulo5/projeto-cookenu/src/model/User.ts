@@ -29,3 +29,24 @@ export class User {
     return this.role;
   }
 }
+
+export interface userDTO {
+  user_name: string;
+  user_email: string;
+  user_password: string;
+  role: typeUser;
+}
+export interface LoginDTO {
+  user_email: string;
+  user_password: string;
+}
+
+export interface GetProfileByIdDTO {
+  user_id: string
+  token: string
+}
+
+export interface FollowDTO {
+  follower_id: string
+  token: string
+}

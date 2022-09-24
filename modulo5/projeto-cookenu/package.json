@@ -13,7 +13,7 @@
     "mysql": "^2.18.1",
     "uuid": "^9.0.0"
   },
-  "name": "criptografia-e-user-roles",
+  "name": "projeto-cookenu",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
