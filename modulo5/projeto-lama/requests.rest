@@ -1,0 +1,41 @@
+### Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+  "name": "Maria Luiza",
+  "email": "malu@gmail.com",
+  "password": "maluzera",
+  "role": "NORMAL"
+}
+
+### Login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+  "email": "malu@gmail.com",
+  "password": "maluzera"
+}
+
+### Create Show
+POST http://localhost:3003/shows
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDQ5NDMxMywiZXhwIjoxNjY0NTgwNzEzfQ.PypSPynfnRL3bcfot8h6IOIWHBJ8MX1bmyfODAZAC-w
+Content-Type: application/json
+
+{
+  "band": "Linking Park",
+  "startsAt": "2022-12-20"
+}
+
+### Get Shows 
+GET http://localhost:3003/shows 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDQ5NDMxMywiZXhwIjoxNjY0NTgwNzEzfQ.PypSPynfnRL3bcfot8h6IOIWHBJ8MX1bmyfODAZAC-w
+
+### Buy Ticket
+POST http://localhost:3003/shows/tickets/201
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyYzQ4YzdmLTQ1NDMtNDc5YS05MTBiLTQzYmIzZDZjZWU2ZSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQ0OTQyNzEsImV4cCI6MTY2NDU4MDY3MX0.jGM808bMdMLgtWl4Sgi9CF9CgaZ7JDFPc_hVFG5WKGw
+
+### Delete Ticket
+DELETE http://localhost:3003/shows/tickets/201
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIyYzQ4YzdmLTQ1NDMtNDc5YS05MTBiLTQzYmIzZDZjZWU2ZSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQ0OTQyNzEsImV4cCI6MTY2NDU4MDY3MX0.jGM808bMdMLgtWl4Sgi9CF9CgaZ7JDFPc_hVFG5WKGw
