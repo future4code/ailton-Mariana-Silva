@@ -156,10 +156,10 @@ export class ShowBusiness {
       user_id: payload.id,
     };
 
-    const ticketDB = await this.showDataBase.buyTicket(newTicket);
+    await this.showDataBase.buyTicket(newTicket);
 
     return {
-      message: ticketDB,
+      message: "Ticket bought successfully",
       ticketnumber: id,
       ticketsAvailable: show.getTickets(),
       result,

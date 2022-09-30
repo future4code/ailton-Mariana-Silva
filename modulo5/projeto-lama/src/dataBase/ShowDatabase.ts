@@ -82,7 +82,7 @@ export class ShowDataBase extends DataBase {
     return result[0];
   };
 
-  public putTickets = async (show_id: string, tickets: number) => {
+  public putTickets = async (show_id: string, tickets: number): Promise<any> => {
     const result = await DataBase.connection(ShowDataBase.TABLE_SHOWS)
       .update({ tickets })
       .where({ id: show_id });

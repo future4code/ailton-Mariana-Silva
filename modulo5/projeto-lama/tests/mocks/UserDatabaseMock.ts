@@ -1,20 +1,8 @@
 import { DataBase } from "../../src/dataBase/DataBase";
 import { IUserDB, User, USER_ROLES } from "../../src/models/User";
 
-export class UserDatabaseMock extends DataBase {
+export class UserDataBaseMock extends DataBase {
   public static TABLE_USERS = "Lama_Users";
-
-  public toUserDBModel = (user: User) => {
-    const userDB: IUserDB = {
-      id: user.getId(),
-      name: user.getName(),
-      email: user.getEmail(),
-      password: user.getPassword(),
-      role: user.getRole(),
-    };
-
-    return userDB;
-  };
 
   findByEmail = async (email: string) => {
     switch (email) {
@@ -24,7 +12,7 @@ export class UserDatabaseMock extends DataBase {
           name: "Mari Andrade",
           email: "mari@gmail.com",
           password:
-            "2a$12$RBAWOHpUvGTE.MEeIohAzec9tlVqtNA/x2PMPt/Hrt0vI437cQdJC",
+            "hash-bananinha",
           role: USER_ROLES.ADMIN,
         };
         return adminUser;

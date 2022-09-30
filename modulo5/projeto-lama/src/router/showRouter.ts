@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ShowBusiness } from "../business/ShowBusiness";
 import { ShowController } from "../controller/ShowController";
-import { ShowDataBase } from "../dataBase/ShowDatabase";
+import { ShowDataBase } from "../dataBase/ShowDataBase";
 import { Authenticator } from "../services/Authenticator";
 import { IdGenerator } from "../services/IdGenerator";
 
