@@ -15,13 +15,13 @@ export class ShowController {
       const input: IShowInputDTO = {
         token: req.headers.authorization!,
         band: req.body.band,
-        startsAt: new Date(req.body.startsAt),
+        startsAt: new Date(req.body.startsAt!),
       };
 
       const response = await this.showBusiness.createShow(input);
 
       res.status(200).send(response);
-    } catch (error: unknown) {
+    } catch (error: any) {
       if (error instanceof BaseError) {
         return res.status(error.statusCode).send({ message: error.message });
       }

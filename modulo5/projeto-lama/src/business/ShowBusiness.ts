@@ -5,7 +5,11 @@ import { MissingFields } from "../error/MissingFields";
 import { PermissionDenied } from "../error/PermissionDenied";
 import { AuthorizationError } from "../error/AuthorizationError";
 import { ShowNotFound, TicketNoAvailable } from "../error/NotFoundError";
-import { TicketNotPurchased, TicketPurchased } from "../error/ConflictError";
+import {
+  ShowAlreadyExist,
+  TicketNotPurchased,
+  TicketPurchased,
+} from "../error/ConflictError";
 import {
   IBuyTicketInputDTO,
   IDeleteTicketDBDTO,
@@ -13,7 +17,6 @@ import {
   IGetShowsInputDTO,
   IPurchaseDBDTO,
   IShowInputDTO,
-  ITicketDB,
   Show,
 } from "../models/Show";
 
@@ -27,15 +30,11 @@ export class ShowBusiness {
   createShow = async (input: IShowInputDTO) => {
     const { token, band, startsAt } = input;
 
-    if (!token || !band || !startsAt) {
+    if (!token || !band || !startsAt || startsAt < new Date("2022/12/05")) {
       throw new MissingFields();
-    }
-    if (startsAt < new Date("2022/12/05")) {
-      throw new PermissionDenied();
     }
 
     const payload = this.authenticator.getTokenPayload(token);
-
     if (!payload) {
       throw new AuthorizationError();
     }
@@ -45,10 +44,15 @@ export class ShowBusiness {
       throw new AuthorizationError();
     }
 
-    const starts_at = new Date(startsAt);
+    const existShow = await this.showDataBase.verifyDate(startsAt);
+
+    if (existShow) {
+      throw new ShowAlreadyExist();
+    }
 
     const id = this.idGenerator.generate();
-    const show = new Show(id, band, starts_at);
+
+    const show = new Show(id, band, startsAt);
 
     await this.showDataBase.createShow(show);
 
@@ -143,6 +147,7 @@ export class ShowBusiness {
     if (show.getTickets() === 0) {
       throw new TicketNoAvailable();
     }
+
     const result = await this.showDataBase.putTickets(
       show.getId(),
       show.getTickets() - 1
@@ -161,7 +166,7 @@ export class ShowBusiness {
     return {
       message: "Ticket bought successfully",
       ticketnumber: id,
-      ticketsAvailable: show.getTickets(),
+      ticketsAvailable: show.getTickets() - 1,
       result,
     };
   };
@@ -174,7 +179,6 @@ export class ShowBusiness {
     }
 
     const payload = this.authenticator.getTokenPayload(token);
-
     if (!payload) {
       throw new AuthorizationError();
     }
@@ -192,12 +196,6 @@ export class ShowBusiness {
 
     if (!isAlreadyBought) {
       throw new TicketNotPurchased();
-    }
-    const isUserAdmin = payload.role === "ADMIN";
-    const isUserOwner = payload.id === isAlreadyBought.user_id;
-
-    if (!isUserAdmin && !isUserOwner) {
-      throw new PermissionDenied();
     }
 
     const deleteTicket: IDeleteTicketDBDTO = {

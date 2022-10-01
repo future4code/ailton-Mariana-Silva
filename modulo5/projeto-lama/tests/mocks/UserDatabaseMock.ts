@@ -17,17 +17,6 @@ export class UserDataBaseMock extends DataBase {
         };
         return adminUser;
 
-      case "usermock@gmail.com":
-        const normalUser: IUserDB = {
-          id: "id-mock",
-          name: "User Mock",
-          email: "usermock@gmail.com",
-          password: "hash-mock",
-          role: USER_ROLES.NORMAL,
-        };
-
-        return normalUser;
-
       default:
         return undefined;
     }

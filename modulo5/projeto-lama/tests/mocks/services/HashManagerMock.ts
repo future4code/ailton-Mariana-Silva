@@ -1,9 +1,5 @@
 export class HashManagerMock {
   public hash = async (plaintext: string): Promise<string> => {
-    if (plaintext === "bananinha") {
-      return "hash-bananinha";
-    }
-
     return "hash-mock";
   };
 

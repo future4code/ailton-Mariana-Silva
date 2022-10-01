@@ -65,6 +65,16 @@ export class ShowDataBaseMock extends DataBase {
 
         return show202;
 
+        case "c390d092-9a00-4b3c-87e1-ab4fc0238b68":
+        const showLinkPark: IShowDB = {
+          id: "c390d092-9a00-4b3c-87e1-ab4fc0238b68",
+          band: "Link Park",
+          starts_at: new Date("2022/12/08"),
+          tickets: 0,
+        };
+
+        return showLinkPark;
+
       default:
         return undefined;
     }

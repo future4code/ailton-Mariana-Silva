@@ -14,12 +14,85 @@ describe("ShowBusiness test", () => {
 
   test("Succeded Deleted Ticket", async () => {
     const input: IBuyTicketInputDTO = {
-        token: "token-mock-admin",
+      token: "token-mock-admin",
+      showId: "201",
+    };
+
+    const response = await showBusiness.deleteTicket(input);
+
+    expect(response.message).toBe("Ticket deleted successfully");
+  });
+
+  test("Permission Denied", async () => {
+    expect.assertions(2);
+
+    try {
+      const input: IBuyTicketInputDTO = {
+        token: "",
+        showId: "202",
+      };
+
+      await showBusiness.deleteTicket(input);
+    } catch (error) {
+      if (error instanceof BaseError) {
+        expect(error.statusCode).toBe(401);
+        expect(error.message).toBe(
+          "Your user does not have permission for this access or your logged time has expired"
+        );
+      }
+    }
+  });
+  test("Authorization Error", async () => {
+    expect.assertions(2);
+
+    try {
+      const input: IBuyTicketInputDTO = {
+        token: "token-mock-invalid",
         showId: "201",
       };
-  
-      const response = await showBusiness.deleteTicket(input);
-  
-      expect(response.message).toBe("Ticket deleted successfully");
-    });
+
+      await showBusiness.deleteTicket(input);
+    } catch (error: any) {
+      if (error instanceof BaseError) {
+        expect(error.statusCode).toBe(403);
+        expect(error.message).toBe("Insufficient permission");
+      }
+    }
   });
+  
+  test("Show not found", async () => {
+    expect.assertions(2);
+
+    try {
+      const input: IBuyTicketInputDTO = {
+        token: "token-mock-admin",
+        showId: "204",
+      };
+
+      await showBusiness.deleteTicket(input);
+    } catch (error: any) {
+      if (error instanceof BaseError) {
+        expect(error.statusCode).toBe(404);
+        expect(error.message).toBe("Show not found");
+      }
+    }
+  });
+
+  test("Ticket Not Purchased", async () => {
+    expect.assertions(2);
+
+    try {
+      const input: IBuyTicketInputDTO = {
+        token: "token-mock-normal",
+        showId: "202",
+      };
+
+      await showBusiness.deleteTicket(input);
+    } catch (error: any) {
+      if (error instanceof BaseError) {
+        expect(error.statusCode).toBe(401);
+        expect(error.message).toBe("You haven't bought a ticket for this show");
+      }
+    }
+  });
+});

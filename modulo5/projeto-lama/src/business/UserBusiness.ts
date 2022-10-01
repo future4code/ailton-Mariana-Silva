@@ -1,17 +1,17 @@
 import { UserDataBase } from "../dataBase/UserDataBase";
-import { Authenticator, ITokenPayload } from "../services/Authenticator";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
+import { Authenticator, ITokenPayload } from "../services/Authenticator";
 import { EmailExists } from "../error/EmailExists";
 import { EmailNoExists } from "../error/EmailExists";
 import { InvalidCredentials } from "../error/InvalidCredentials";
-4;
 import {
   ILoginInputDTO,
   ISignupInputDTO,
   User,
   USER_ROLES,
 } from "../models/User";
+import { IncorrectPassword } from "../error/IncorrectPassword";
 
 export class UserBusiness {
   constructor(
@@ -88,7 +88,7 @@ export class UserBusiness {
     );
 
     if (!isPasswordCorrect) {
-      throw new EmailNoExists();
+      throw new IncorrectPassword();
     }
 
     const payload: ITokenPayload = {

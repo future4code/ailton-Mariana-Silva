@@ -2,7 +2,6 @@ import { ShowBusiness } from "../../src/business/ShowBusiness";
 import { BaseError } from "../../src/error/BaseError";
 import { IShowInputDTO } from "../../src/models/Show";
 import { AuthenticatorMock } from "../mocks/services/AuthenticatorMock";
-import { HashManagerMock } from "../mocks/services/HashManagerMock";
 import { IdGeneratorMock } from "../mocks/services/IdGeneratorMock";
 import { ShowDataBaseMock } from "../mocks/ShowDataBaseMock";
 
@@ -26,43 +25,61 @@ describe("ShowBusiness test", () => {
     expect(response.show.getBand()).toBe("Linking Park");
   });
 
-//   test("Missing Fields", async () => {
-//     expect.assertions(2)
+  test("Authorization Error", async () => {
+    expect.assertions(2);
 
-//     try {
-//         const input: IShowInputDTO = {
-//             token: "invalid-token",
-//             band: "Linking Park",
-//             startsAt: new Date("2022/12/07"),
-//         }
+    try {
+      const input: IShowInputDTO = {
+        token: "token-mock-invalid",
+        band: "Linking Park",
+        startsAt: new Date("2022/12/07"),
+      };
 
-//         await showBusiness.createShow(input)
+      await showBusiness.createShow(input);
+    } catch (error: any) {
+      if (error instanceof BaseError) {
+        expect(error.statusCode).toBe(403);
+        expect(error.message).toBe("Insufficient permission");
+      }
+    }
+  });
 
-//     } catch (error) {
-//         if(error instanceof BaseError) {
-//             expect(error.statusCode).toBe(400)
-//             expect(error.message).toBe("Missing fields to complet.")
-//         }
-//     }
-// })
+  test("Show Already Exists", async () => {
+    expect.assertions(2);
 
-// test("Missing Fields", async () => {
-//     expect.assertions(2)
+    try {
+      const input: IShowInputDTO = {
+        token: "token-mock-admin",
+        band: "Linking Park",
+        startsAt: new Date("2022/12/05"),
+      };
 
-//     try {
-//         const input: IShowInputDTO = {
-//             token: "token-mock",
-//             band: "Linking Park",
-//             startsAt: new Date("2022/12/07"),
-//         }
+      await showBusiness.createShow(input);
+    } catch (error: any) {
+      if (error instanceof BaseError) {
+        expect(error.statusCode).toBe(401);
+        expect(error.message).toBe("Show Already Exists on this day");
+      }
+    }
+  });
+  test("Missing Fields", async () => {
+    expect.assertions(2);
 
-//         await showBusiness.createShow(input)
+    try {
+      const input: IShowInputDTO = {
+        token: "token-mock-invalid",
+        band: "",
+        startsAt: new Date("2022/12/07"),
+      };
 
-//     } catch (error) {
-//         if(error instanceof BaseError) {
-//             expect(error.statusCode).toBe(400)
-//             expect(error.message).toBe("Missing fields to complet.")
-//         }
-//     }
-// })
+      await showBusiness.createShow(input);
+    } catch (error) {
+      if (error instanceof BaseError) {
+        expect(error.statusCode).toBe(400);
+        expect(error.message).toBe(
+          "Missing fields to complet. Inform token, band name and date at show. Be aware that date  can't be earlier than 12/05/2022"
+        );
+      }
+    }
+  });
 });

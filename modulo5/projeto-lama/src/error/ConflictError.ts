@@ -14,3 +14,9 @@ export class TicketNotPurchased extends BaseError {
     super("You haven't bought a ticket for this show", 401);
   }
 }
+
+export class ShowAlreadyExist extends BaseError {
+  constructor() {
+    super("Show Already Exists on this day", 401);
+  }
+}

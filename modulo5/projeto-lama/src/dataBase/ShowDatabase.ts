@@ -11,11 +11,11 @@ export class ShowDataBase extends DataBase {
   public static TABLE_SHOWS = "Lama_Shows";
   public static TABLE_TICKETS = "Lama_Tickets";
 
-  verifyDate = async (starts_at: Date): Promise<IShowDB | null> => {
+  verifyDate = async (starts_at: Date): Promise<IShowDB | any> => {
     const result = await DataBase.connection(ShowDataBase.TABLE_SHOWS)
-      .select()
-      .where({ starts_at });
-
+    .select()
+    .where({ starts_at });
+    
     return result[0];
   };
 

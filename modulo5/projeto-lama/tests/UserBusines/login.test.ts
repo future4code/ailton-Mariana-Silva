@@ -45,6 +45,25 @@ describe("UserBusiness test", () => {
     }
 })
 
+test("Incorrect password", async () => {
+  expect.assertions(2)
+
+  try {
+      const input: ILoginInputDTO = {
+        email: "mari@gmail.com",
+        password: "password-incorrect",
+      }
+
+      await userBusiness.login(input)
+
+  } catch (error) {
+      if(error instanceof BaseError) {
+          expect(error.statusCode).toBe(401)
+          expect(error.message).toBe("Incorrect password. Verify the data you provided")
+      }
+  }
+})
+
 test("Email No Exists", async () => {
   expect.assertions(2)
 

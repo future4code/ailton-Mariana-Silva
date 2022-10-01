@@ -29,35 +29,18 @@ export class Show {
 
   public getStartsAt = () => {
     return this.startsAt;
-  };
+
+  }
 
   public getTickets = () => {
     return this.tickets;
   };
-
-  public setId = (newId: string) => {
-    this.id = newId;
-  };
-
-  public setBand = (newBand: string) => {
-    this.band = newBand;
-  };
-
-  public setStartsAt = (newStartsAt: Date) => {
-    this.startsAt = newStartsAt;
-  };
-
-  public setTickets = (newTickets: number) => {
-    this.tickets = newTickets;
-  };
 }
-
 export interface IShowInputDTO {
   token: string;
   band: string;
   startsAt: Date;
 }
-
 export interface IGetShowsInputDTO {
   token: string;
   search: string;
@@ -66,7 +49,6 @@ export interface IGetShowsInputDTO {
   page: string;
   limit: string;
 }
-
 export interface IGetShowsDBDTO {
   search: string;
   order: string;
@@ -74,18 +56,15 @@ export interface IGetShowsDBDTO {
   limit: number;
   offset: number;
 }
-
 export interface IBuyTicketInputDTO {
   token: string;
   showId: string;
 }
-
 export interface IPurchaseDBDTO {
   purchase_id: string;
   show_id: string;
   user_id: string;
 }
-
 export interface IDeleteTicketDBDTO {
   show_id: string;
   user_id: string;
