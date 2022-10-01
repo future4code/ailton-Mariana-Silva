@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ShowBusiness } from "../business/ShowBusiness";
 import { BaseError } from "../error/BaseError";
 import {
-  IBuyTicketInputDTO,
+  IBookATicketInputDTO,
   IGetShowsInputDTO,
   IShowInputDTO,
 } from "../models/Show";
@@ -54,14 +54,14 @@ export class ShowController {
         .send({ message: "Unexpected error occurred during get shows" });
     }
   };
-  buyTicket = async (req: Request, res: Response) => {
+  bookATicket = async (req: Request, res: Response) => {
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: req.headers.authorization!,
         showId: req.params.id,
       };
 
-      const response = await this.showBusiness.buyTicket(input);
+      const response = await this.showBusiness.bookATicket(input);
 
       res.status(200).send(response);
     } catch (error: unknown) {
@@ -70,13 +70,13 @@ export class ShowController {
       }
       res
         .status(500)
-        .send({ message: "Unexpected error occurred during buy ticket" });
+        .send({ message: "Unexpected error occurred during book a ticket" });
     }
   };
 
   deleteTicket = async (req: Request, res: Response) => {
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: req.headers.authorization!,
         showId: req.params.id as string,
       };

@@ -51,7 +51,7 @@ describe("ShowBusiness test", () => {
       }
     }
   });
-  
+
   test("Authorization Error", async () => {
     expect.assertions(2);
 

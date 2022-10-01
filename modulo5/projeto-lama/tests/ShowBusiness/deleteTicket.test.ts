@@ -1,6 +1,6 @@
 import { ShowBusiness } from "../../src/business/ShowBusiness";
 import { BaseError } from "../../src/error/BaseError";
-import { IBuyTicketInputDTO, IShowInputDTO } from "../../src/models/Show";
+import { IBookATicketInputDTO, IShowInputDTO } from "../../src/models/Show";
 import { AuthenticatorMock } from "../mocks/services/AuthenticatorMock";
 import { IdGeneratorMock } from "../mocks/services/IdGeneratorMock";
 import { ShowDataBaseMock } from "../mocks/ShowDataBaseMock";
@@ -13,7 +13,7 @@ describe("ShowBusiness test", () => {
   );
 
   test("Succeded Deleted Ticket", async () => {
-    const input: IBuyTicketInputDTO = {
+    const input: IBookATicketInputDTO = {
       token: "token-mock-admin",
       showId: "201",
     };
@@ -27,7 +27,7 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "",
         showId: "202",
       };
@@ -46,7 +46,7 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "token-mock-invalid",
         showId: "201",
       };
@@ -59,12 +59,12 @@ describe("ShowBusiness test", () => {
       }
     }
   });
-  
+
   test("Show not found", async () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "token-mock-admin",
         showId: "204",
       };
@@ -82,7 +82,7 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "token-mock-normal",
         showId: "202",
       };

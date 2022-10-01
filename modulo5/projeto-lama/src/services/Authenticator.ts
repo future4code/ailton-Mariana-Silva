@@ -23,7 +23,6 @@ export class Authenticator {
       const payload = jwt.verify(token, process.env.JWT_KEY as string);
 
       return payload as ITokenPayload;
-      
     } catch (error) {
       return null;
     }

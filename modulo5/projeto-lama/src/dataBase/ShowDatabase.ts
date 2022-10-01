@@ -13,9 +13,9 @@ export class ShowDataBase extends DataBase {
 
   verifyDate = async (starts_at: Date): Promise<IShowDB | any> => {
     const result = await DataBase.connection(ShowDataBase.TABLE_SHOWS)
-    .select()
-    .where({ starts_at });
-    
+      .select()
+      .where({ starts_at });
+
     return result[0];
   };
 
@@ -64,7 +64,7 @@ export class ShowDataBase extends DataBase {
     }
   };
 
-  buyTicket = async (purchase: IPurchaseDBDTO) => {
+  bookATicket = async (purchase: IPurchaseDBDTO) => {
     const purchaseDB = {
       id: purchase.purchase_id,
       show_id: purchase.show_id,
@@ -82,7 +82,10 @@ export class ShowDataBase extends DataBase {
     return result[0];
   };
 
-  public putTickets = async (show_id: string, tickets: number): Promise<any> => {
+  public putTickets = async (
+    show_id: string,
+    tickets: number
+  ): Promise<any> => {
     const result = await DataBase.connection(ShowDataBase.TABLE_SHOWS)
       .update({ tickets })
       .where({ id: show_id });

@@ -11,7 +11,7 @@ import {
   TicketPurchased,
 } from "../error/ConflictError";
 import {
-  IBuyTicketInputDTO,
+  IBookATicketInputDTO,
   IDeleteTicketDBDTO,
   IGetShowsDBDTO,
   IGetShowsInputDTO,
@@ -109,7 +109,7 @@ export class ShowBusiness {
     return response;
   };
 
-  buyTicket = async (input: IBuyTicketInputDTO) => {
+  bookATicket = async (input: IBookATicketInputDTO) => {
     const { token, showId } = input;
 
     if (!token || !showId) {
@@ -161,7 +161,7 @@ export class ShowBusiness {
       user_id: payload.id,
     };
 
-    await this.showDataBase.buyTicket(newTicket);
+    await this.showDataBase.bookATicket(newTicket);
 
     return {
       message: "Ticket bought successfully",
@@ -171,7 +171,7 @@ export class ShowBusiness {
     };
   };
 
-  deleteTicket = async (input: IBuyTicketInputDTO) => {
+  deleteTicket = async (input: IBookATicketInputDTO) => {
     const { token, showId } = input;
 
     if (!token || !showId) {

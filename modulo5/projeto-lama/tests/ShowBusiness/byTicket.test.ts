@@ -1,6 +1,6 @@
 import { ShowBusiness } from "../../src/business/ShowBusiness";
 import { BaseError } from "../../src/error/BaseError";
-import { IBuyTicketInputDTO, IShowInputDTO } from "../../src/models/Show";
+import { IBookATicketInputDTO, IShowInputDTO } from "../../src/models/Show";
 import { AuthenticatorMock } from "../mocks/services/AuthenticatorMock";
 import { IdGeneratorMock } from "../mocks/services/IdGeneratorMock";
 import { ShowDataBaseMock } from "../mocks/ShowDataBaseMock";
@@ -13,12 +13,12 @@ describe("ShowBusiness test", () => {
   );
 
   test("Succeded by Ticket", async () => {
-    const input: IBuyTicketInputDTO = {
+    const input: IBookATicketInputDTO = {
       token: "token-mock-admin",
       showId: "202",
     };
 
-    const response = await showBusiness.buyTicket(input);
+    const response = await showBusiness.bookATicket(input);
 
     expect(response.message).toBe("Ticket bought successfully");
   });
@@ -27,12 +27,12 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "",
         showId: "201",
       };
 
-      await showBusiness.buyTicket(input);
+      await showBusiness.bookATicket(input);
     } catch (error) {
       if (error instanceof BaseError) {
         expect(error.statusCode).toBe(401);
@@ -47,12 +47,12 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "token-mock-invalid",
         showId: "201",
       };
 
-      await showBusiness.buyTicket(input);
+      await showBusiness.bookATicket(input);
     } catch (error: any) {
       if (error instanceof BaseError) {
         expect(error.statusCode).toBe(403);
@@ -65,7 +65,7 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "token-mock-normal",
         showId: "204",
       };
@@ -83,12 +83,12 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "token-mock-normal",
         showId: "201",
       };
 
-      await showBusiness.buyTicket(input);
+      await showBusiness.bookATicket(input);
     } catch (error: any) {
       if (error instanceof BaseError) {
         expect(error.statusCode).toBe(401);
@@ -103,12 +103,12 @@ describe("ShowBusiness test", () => {
     expect.assertions(2);
 
     try {
-      const input: IBuyTicketInputDTO = {
+      const input: IBookATicketInputDTO = {
         token: "token-mock-admin",
         showId: "c390d092-9a00-4b3c-87e1-ab4fc0238b68",
       };
 
-      await showBusiness.buyTicket(input);
+      await showBusiness.bookATicket(input);
     } catch (error: any) {
       if (error instanceof BaseError) {
         expect(error.statusCode).toBe(422);

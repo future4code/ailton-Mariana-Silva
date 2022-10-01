@@ -1,6 +1,6 @@
 import { DataBase } from "../../src/dataBase/DataBase";
 import {
-  IBuyTicketInputDTO,
+  IBookATicketInputDTO,
   IDeleteTicketDBDTO,
   IGetShowsDBDTO,
   IPurchaseDBDTO,
@@ -65,7 +65,7 @@ export class ShowDataBaseMock extends DataBase {
 
         return show202;
 
-        case "c390d092-9a00-4b3c-87e1-ab4fc0238b68":
+      case "c390d092-9a00-4b3c-87e1-ab4fc0238b68":
         const showLinkPark: IShowDB = {
           id: "c390d092-9a00-4b3c-87e1-ab4fc0238b68",
           band: "Link Park",
@@ -80,31 +80,30 @@ export class ShowDataBaseMock extends DataBase {
     }
   };
 
-  
   createShow = async (show: Show) => {};
 
   getShows = async (input: IGetShowsDBDTO) => {
     const shows: IShowDB[] = [
-        {
+      {
         id: "201",
         band: "Foo Fighters",
         starts_at: new Date("2022/12/05"),
         tickets: 5000,
       },
       {
-          id: "202",
+        id: "202",
         band: "System of a Down",
         starts_at: new Date("2022/12/06"),
         tickets: 5000,
-    },
-];
+      },
+    ];
 
     return shows;
   };
-  
-  buyTicket = async (purchase: IPurchaseDBDTO) => {};
+
+  bookATicket = async (purchase: IPurchaseDBDTO) => {};
 
   deleteTicket = async (purchase: IDeleteTicketDBDTO) => {};
-  
+
   putTickets = async (show_id: any, tickets: any) => {};
 }

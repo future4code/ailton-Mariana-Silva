@@ -29,8 +29,7 @@ export class Show {
 
   public getStartsAt = () => {
     return this.startsAt;
-
-  }
+  };
 
   public getTickets = () => {
     return this.tickets;
@@ -56,7 +55,7 @@ export interface IGetShowsDBDTO {
   limit: number;
   offset: number;
 }
-export interface IBuyTicketInputDTO {
+export interface IBookATicketInputDTO {
   token: string;
   showId: string;
 }

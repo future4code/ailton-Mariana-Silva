@@ -8,14 +8,10 @@ import { IdGenerator } from "../services/IdGenerator";
 export const showRouter = Router();
 
 const showController = new ShowController(
-    new ShowBusiness(
-        new ShowDataBase(),
-        new IdGenerator(),
-        new Authenticator()
-    )
+  new ShowBusiness(new ShowDataBase(), new IdGenerator(), new Authenticator())
 );
 
 showRouter.post("/", showController.createShow);
 showRouter.get("/", showController.getShows);
-showRouter.post("/tickets/:id", showController.buyTicket);
+showRouter.post("/tickets/:id", showController.bookATicket);
 showRouter.delete("/tickets/:id", showController.deleteTicket);

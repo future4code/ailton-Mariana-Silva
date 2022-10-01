@@ -11,8 +11,7 @@ export class UserDataBaseMock extends DataBase {
           id: "101",
           name: "Mari Andrade",
           email: "mari@gmail.com",
-          password:
-            "hash-bananinha",
+          password: "hash-bananinha",
           role: USER_ROLES.ADMIN,
         };
         return adminUser;
