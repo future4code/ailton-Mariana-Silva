@@ -1,0 +1,1 @@
+Estou participando de um processo seletivo. Após a finalização subo o código/case.
