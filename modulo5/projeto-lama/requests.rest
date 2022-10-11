@@ -1,0 +1,41 @@
+### Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+  "name": "Maria Luiza",
+  "email": "malu@gmail.com",
+  "password": "maluzera",
+  "role": "NORMAL"
+}
+
+### Login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+  "email": "malu@gmail.com",
+  "password": "maluzera"
+}
+
+### Create Show
+POST http://localhost:3003/shows
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImUyOTE1ZWY3LWI3M2QtNDFkNS1iZGUwLWZlYjgzZjg4YTU5YyIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQ2Mjk0NzcsImV4cCI6MTY2NDcxNTg3N30.cTDES0GyGdZcefwQITJ1UqzZTl1yZ0nkm3fXDqDCsDA
+Content-Type: application/json
+
+{
+  "band": "Linking Park",
+  "startsAt": "2022/12/15"
+}
+
+### Get Shows 
+GET http://localhost:3003/shows 
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY2NDU3MzI5MCwiZXhwIjoxNjY0NjU5NjkwfQ.YZeAygoCOYYfUC9SAq4lRnhlArjwJze5Z2g8-NSoVV8
+
+### Book a Ticket
+POST http://localhost:3003/shows/tickets/e2ec28e2-c912-40b0-ab26-8c5fde3cd3f3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjljNjRiMGYxLThlZDctNDQwZi04OTkwLTMxODk0N2E1MTdmYSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQ2MzIzNjgsImV4cCI6MTY2NDcxODc2OH0.Jz88n0rOFIUCRFPBByom7iP21ZKkAFVnh0z0XftXNlQ
+
+### Delete Ticket
+DELETE http://localhost:3003/shows/tickets/e2ec28e2-c912-40b0-ab26-8c5fde3cd3f3
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjljNjRiMGYxLThlZDctNDQwZi04OTkwLTMxODk0N2E1MTdmYSIsInJvbGUiOiJOT1JNQUwiLCJpYXQiOjE2NjQ2MzIzNjgsImV4cCI6MTY2NDcxODc2OH0.Jz88n0rOFIUCRFPBByom7iP21ZKkAFVnh0z0XftXNlQ
