@@ -5,6 +5,7 @@ export const CardSection = styled.div`
   box-shadow: 0.0625rem 0.1875rem 0.1875rem 0.25rem rgba(0, 0, 0, 0.25);
   background-color: lightblue;
   border-radius: 0.625rem;
+  margin: 0 auto;
 `;
 export const BorderCards = styled.div`
   display: flex;

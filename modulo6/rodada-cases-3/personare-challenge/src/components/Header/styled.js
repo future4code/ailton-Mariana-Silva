@@ -16,18 +16,18 @@ export const HeaderContainer = styled.div`
   }
   p {
     width: 9.375rem;
-    font-size: 19px;
+    font-size: 1.1875rem;
     align-items: center;
     text-align: center;
     color: #191970;
   }
   .button {
     margin: 0;
-    width: 9.375rem;
+    width: 9rem;
     align-items: center;
     text-align: center;
     background-color: transparent;
     color: #191970;
-    border: 1px solid #191970;
+    border: 0.0625rem solid #191970;
   }
 `;

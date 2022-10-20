@@ -27,13 +27,15 @@ export const Rules = styled.div`
   flex-direction: column;
   text-align: center;
   position: fixed;
-  margin: 85px;
+  margin: 5.3125rem;
   color: #191970;
   img {
-    width: 110px;
+    width: 6.875rem;
+  }
+  @media screen and (max-width: 30rem) {
+    margin: 9.3125rem 0 0 0.3125rem;
   }
 `;
-
 export const CardsContainer = styled.div`
   display: flex;
   margin: 0 auto;

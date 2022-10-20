@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { GlobalContext } from "../../Global/GlobalContext";
 import { CardSection, BorderCards, Cards } from "./styled";
 import { imageBackCard, imagesUrl } from "../../constants/urls";
+import { Loading } from "../../components/Loader/Loader";
 import { cards } from "../../constants/cards";
 import Swal from "sweetalert2";
 
@@ -43,11 +44,14 @@ export const BackCards = () => {
     }
   };
 
-  const allCardsBack = cards.map((card, index) => {
+  const allCardsBack = cards.map((card) => {
     return (
-      <Cards key={index} onClick={randomCards}>
-        <img src={`${imageBackCard}`} alt="back card" />
-      </Cards>
+        <Cards key={card.name} onClick={randomCards}>
+        {states.isLoading && <Loading />}
+        {!states.isLoading && (
+            <img src={`${imageBackCard}`} alt="back card" />
+            )}
+            </Cards>
     );
   });
 
