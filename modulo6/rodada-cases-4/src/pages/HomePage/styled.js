@@ -5,18 +5,11 @@ export const Container = styled.div`
   flex-direction: column;
   .pagination {
     margin: 25px auto;
-    .css-kvsszq-MuiButtonBase-root-MuiPaginationItem-root {
+    .css-19xm0h7-MuiButtonBase-root-MuiPaginationItem-root {
       color: #5c16c5;
       font-size: 20px;
       font-weight: 700;
       border: none;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    .pagination {
-      .css-kvsszq-MuiButtonBase-root-MuiPaginationItem-root {
-        min-width: 10px;
-      }
     }
   }
 `;

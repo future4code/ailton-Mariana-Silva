@@ -33,7 +33,6 @@ export const HomePage = () => {
             page={states.page}
             variant="outlined"
             shape="rounded"
-            size="large"
           />
           <GoUpMobile onClick={() => window.scroll(0, 0)}>
             <ImArrowUp2 /> Voltar ao topo
